@@ -1,0 +1,2731 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond Willpower — Algorithmic Capture &amp; the Developing Adolescent Mind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/scrollama@3.2.0/build/scrollama.min.js"></script>
+  <style>
+    :root {
+      /* Reference Template Palette: Crisp Outer Frame + Stacked Editorial Bands */
+      --canvas-outer: #FFFFFF;
+      --cream: #F4F8D1;          /* Pale chartreuse / butter-cream card surface */
+      --cream-soft: #FAF8EE;
+      --obsidian: #0A0A0A;       /* Pitch-black editorial section */
+      --obsidian-elevated: #171717;
+      --ochre: #C88641;          /* Warm caramel-ochre section & primary button */
+      --ochre-deep: #A66A2B;
+      --ochre-soft: #E5A967;
+      --espresso-dark: #2E2318;  /* Warm dark sepia hero & footer banner */
+      --espresso-mid: #3D2E20;
+
+      /* High-Contrast Typography Ink */
+      --ink-black: #0A0A0A;
+      --ink-dark-muted: #3A3730;
+      --ink-light: #FAF8EE;
+      --ink-light-muted: #DDD7C7;
+
+      /* Semantic Data Accents */
+      --teal-accent: #14B8A6;
+      --teal-deep: #0F766E;
+      --crimson-accent: #DC2626;
+      --crimson-light: #F87171;
+
+      /* Fonts: Georgia Pro Condensed + Gotham Editorial Pairing */
+      --font-editorial: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Type Scale */
+      --display-size: clamp(2.65rem, 1.8rem + 3.4vw, 4.65rem);
+      --h2-size: clamp(2.1rem, 1.5rem + 2.3vw, 3.35rem);
+      --h3-size: clamp(1.45rem, 1.2rem + 0.9vw, 1.95rem);
+      --lede-size: clamp(1.12rem, 1.02rem + 0.4vw, 1.32rem);
+      --body-size: 1.1rem;
+      --label-size: 0.78rem;
+
+      /* Geometry */
+      --band-radius: clamp(22px, 2.5vw, 36px);
+      --card-radius: 20px;
+      --pill-radius: 9999px;
+
+      /* Spacing */
+      --space-xs: 0.35rem;
+      --space-sm: 0.65rem;
+      --space-md: 1.15rem;
+      --space-lg: 1.75rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 3.75rem;
+      --space-3xl: 5rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-short: 180ms;
+      --dur-med: 320ms;
+    }
+
+    /* ══ SCROLLYTELLING PIN CORE (BAND 3: OBSIDIAN — ENLARGED VIEWER-FRIENDLY) ═══════ */
+    .module-header-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-xl);
+      align-items: end;
+      margin-bottom: var(--space-2xl);
+    }
+    .scrolly {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .scrolly-graphic {
+      position: sticky;
+      top: 72px;
+      z-index: 25;
+      width: 100%;
+      margin: 0;
+    }
+    .steps {
+      padding: var(--space-md) 0 var(--space-xl);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+    }
+    .step {
+      min-height: auto;
+      display: grid;
+      align-content: stretch;
+    }
+
+    .step-card {
+      background: var(--obsidian-elevated);
+      border: 1.5px solid rgba(244, 248, 209, 0.18);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      align-content: start;
+      opacity: 0.68;
+      transition: all var(--dur-med) var(--ease-out);
+      cursor: pointer;
+    }
+    .step-card:hover {
+      opacity: 0.94;
+      border-color: rgba(244, 248, 209, 0.5);
+    }
+    .step.is-active .step-card {
+      opacity: 1;
+      border-color: var(--cream);
+      background: #1E1C17;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55);
+    }
+
+    .exhibit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.95rem;
+      border-radius: var(--pill-radius);
+      background: rgba(244, 248, 209, 0.16);
+      color: var(--cream);
+      width: fit-content;
+    }
+    .exhibit-pill.ochre {
+      background: rgba(200, 134, 65, 0.28);
+      color: var(--ochre-soft);
+    }
+    .exhibit-pill.dark-pill {
+      background: var(--obsidian);
+      color: var(--cream);
+    }
+
+    .verbatim-quote {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.18rem;
+      line-height: 1.5;
+      color: var(--cream);
+      background: rgba(255, 255, 255, 0.06);
+      padding: var(--space-md) var(--space-lg);
+      border-left: 3px solid var(--ochre);
+      border-radius: 0 12px 12px 0;
+    }
+
+    /* Enlarged High-Clarity Observatory Panel */
+    .observatory-panel {
+      width: 100%;
+      background: #141311;
+      border: 2px solid rgba(244, 248, 209, 0.34);
+      border-radius: 26px;
+      padding: clamp(1.15rem, 2.5vw, 2rem);
+      display: grid;
+      gap: var(--space-lg);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.72);
+    }
+    .observatory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-md);
+      border-bottom: 1.5px solid rgba(244, 248, 209, 0.18);
+    }
+    .obs-phase-badge {
+      font-family: var(--font-mono);
+      font-size: clamp(0.92rem, 0.85rem + 0.35vw, 1.12rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .obs-phase-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--ochre);
+      box-shadow: 0 0 0 4px rgba(200, 134, 65, 0.25);
+    }
+
+    /* Thumb-Friendly Descriptive Beat Tabs */
+    .beat-tabs-bar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+    .beat-tab-btn {
+      min-height: 52px;
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--pill-radius);
+      border: 1.5px solid rgba(244, 248, 209, 0.28);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--ink-light-muted);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      text-align: center;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .beat-tab-btn:hover {
+      border-color: var(--cream);
+      color: var(--cream);
+      background: rgba(244, 248, 209, 0.1);
+    }
+    .beat-tab-btn.is-active {
+      background: var(--cream);
+      color: var(--ink-black);
+      border-color: var(--cream);
+      box-shadow: 0 6px 18px rgba(244, 248, 209, 0.22);
+    }
+
+    .observatory-stage {
+      background: #0B0B0A;
+      border: 1.5px solid rgba(244, 248, 209, 0.16);
+      border-radius: 20px;
+      padding: clamp(1.1rem, 2.4vw, 2rem);
+      display: grid;
+      align-items: center;
+    }
+
+    /* Responsive Beat Visual Layouts inside Observatory */
+    .obs-beat-view {
+      display: grid;
+      gap: var(--space-lg);
+      width: 100%;
+    }
+    .obs-beat-kicker {
+      font-family: var(--font-mono);
+      font-size: clamp(0.84rem, 0.8rem + 0.2vw, 0.98rem);
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ochre-soft);
+    }
+
+    /* Beat 01 Grid */
+    .beat0-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-xl);
+      align-items: center;
+    }
+    .beat0-dial-box {
+      background: #151412;
+      border: 1.5px solid rgba(244, 248, 209, 0.16);
+      border-radius: 18px;
+      padding: var(--space-md);
+      display: grid;
+      place-items: center;
+    }
+    .obs-stat-stack {
+      display: grid;
+      gap: 0.85rem;
+    }
+    .obs-stat-tile {
+      background: #171613;
+      border: 1.5px solid rgba(244, 248, 209, 0.18);
+      border-radius: 16px;
+      padding: 1rem 1.25rem;
+      display: grid;
+      gap: 0.25rem;
+    }
+    .obs-stat-tile.highlight-cream {
+      background: #231F17;
+      border-color: var(--cream);
+    }
+    .obs-stat-tile.highlight-crimson {
+      background: #241313;
+      border-color: var(--crimson-light);
+    }
+    .obs-tile-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .obs-tile-big {
+      font-family: var(--font-editorial);
+      font-weight: 700;
+      font-size: clamp(1.35rem, 1.15rem + 0.6vw, 1.72rem);
+      line-height: 1.25;
+      color: var(--ink-light);
+    }
+    .obs-tile-hero-num {
+      font-family: var(--font-editorial);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 2rem + 1.2vw, 3.25rem);
+      line-height: 1.05;
+    }
+
+    /* Beat 02 Visual Bars */
+    .ratio-split-bar {
+      display: grid;
+      grid-template-columns: 1fr 3.2fr;
+      gap: 0.65rem;
+    }
+    .ratio-block {
+      border-radius: 14px;
+      padding: 1rem 1.15rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: clamp(0.86rem, 0.8rem + 0.25vw, 1rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .nac-bars-grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+    .nac-bar-row {
+      display: grid;
+      gap: 0.4rem;
+    }
+    .nac-bar-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .nac-bar-bg {
+      height: 24px;
+      background: #1C1B18;
+      border-radius: var(--pill-radius);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(244, 248, 209, 0.14);
+    }
+    .nac-bar-val {
+      height: 100%;
+      border-radius: var(--pill-radius);
+    }
+
+    /* Beat 03 Dual Metric Cards */
+    .beat2-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+
+    .observatory-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-md);
+      flex-wrap: wrap;
+      padding-top: 0.35rem;
+    }
+
+    /* Large Lecture / Classroom Comfort Mode */
+    html.lecture-mode {
+      --body-size: 1.26rem;
+      --lede-size: clamp(1.28rem, 1.12rem + 0.55vw, 1.52rem);
+      --h3-size: clamp(1.68rem, 1.35rem + 1.15vw, 2.25rem);
+      --label-size: 0.85rem;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--canvas-outer);
+      color: var(--ink-black);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      font-weight: 500;
+      line-height: 1.68;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--ochre);
+      outline-offset: 3px;
+    }
+
+    h1, h2, h3, h4 {
+      margin: 0;
+      font-family: var(--font-editorial);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+    }
+
+    p {
+      margin: 0;
+      max-width: 66ch;
+    }
+
+    /* Outer Editorial Frame */
+    .editorial-page-frame {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 10px 12px 24px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(1.15rem, 2.5vw, 2.5rem);
+      overflow-x: clip;
+    }
+
+    /* Stacked Rounded Editorial Bands */
+    .editorial-band {
+      border-radius: var(--band-radius);
+      padding: var(--space-3xl) 0;
+      position: relative;
+      overflow-x: clip;
+    }
+
+    .band-sepia-hero {
+      background-color: var(--espresso-dark);
+      background-image:
+        radial-gradient(circle at 75% 28%, rgba(200, 134, 65, 0.34), transparent 52%),
+        radial-gradient(circle at 20% 80%, rgba(244, 248, 209, 0.12), transparent 48%),
+        linear-gradient(160deg, #3D2E20 0%, #261C13 100%);
+      color: var(--ink-light);
+      padding: var(--space-2xl) 0 var(--space-3xl);
+    }
+
+    .band-cream {
+      background-color: var(--cream);
+      color: var(--ink-black);
+    }
+
+    .band-obsidian {
+      background-color: var(--obsidian);
+      color: var(--ink-light);
+    }
+
+    .band-ochre {
+      background-color: var(--ochre);
+      color: var(--ink-black);
+    }
+
+    .band-espresso {
+      background-color: var(--espresso-mid);
+      background-image: radial-gradient(circle at 85% 15%, rgba(200, 134, 65, 0.2), transparent 50%);
+      color: var(--ink-light);
+    }
+
+    .band-covenant-sepia {
+      background-color: var(--espresso-dark);
+      background-image:
+        radial-gradient(circle at 20% 25%, rgba(200, 134, 65, 0.28), transparent 55%),
+        linear-gradient(145deg, #3A2B1D 0%, #1F1710 100%);
+      color: var(--ink-light);
+    }
+
+    /* Sticky Top Navigation Bar inside Editorial Frame */
+    .site-nav-wrapper {
+      position: sticky;
+      top: 8px;
+      z-index: 60;
+      background: rgba(10, 10, 10, 0.94);
+      backdrop-filter: blur(10px);
+      border-radius: var(--pill-radius);
+      padding: 0.55rem 1.25rem;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.16);
+      border: 1px solid rgba(244, 248, 209, 0.16);
+    }
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: 0 0 0 4px rgba(200, 134, 65, 0.35);
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-family: var(--font-editorial);
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--cream);
+      letter-spacing: -0.01em;
+    }
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ochre-soft);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.2rem;
+    }
+    .nav-link {
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--ink-light-muted);
+      text-decoration: none;
+      padding: 0.45rem 0.8rem;
+      border-radius: var(--pill-radius);
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .nav-link:hover {
+      background: var(--cream);
+      color: var(--ink-black);
+    }
+    .lecture-toggle-btn {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--ink-black);
+      background: var(--cream);
+      border: none;
+      border-radius: var(--pill-radius);
+      padding: 0.45rem 0.95rem;
+      min-height: 38px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .lecture-toggle-btn:hover,
+    .lecture-toggle-btn[aria-pressed="true"] {
+      background: var(--ochre);
+      color: var(--ink-black);
+    }
+
+    /* Editorial Display Headings & Labels */
+    .display-title {
+      font-family: var(--font-editorial);
+      font-weight: 500;
+      font-size: var(--display-size);
+      line-height: 1.04;
+      letter-spacing: -0.028em;
+      color: var(--cream);
+    }
+    .display-title .accent-cream {
+      color: var(--cream);
+      font-style: italic;
+    }
+    .display-title .accent-ochre {
+      color: var(--ochre-soft);
+    }
+
+    .section-title {
+      font-family: var(--font-editorial);
+      font-weight: 500;
+      font-size: var(--h2-size);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    .card-title {
+      font-family: var(--font-editorial);
+      font-weight: 600;
+      font-size: var(--h3-size);
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+    }
+    .card-title em {
+      font-style: italic;
+    }
+
+    .meta-label {
+      font-family: var(--font-mono);
+      font-size: var(--label-size);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .editorial-italic-quote {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.35rem, 1.15rem + 0.65vw, 1.85rem);
+      line-height: 1.42;
+    }
+
+    /* Pill Buttons */
+    .btn {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      font-weight: 700;
+      border-radius: var(--pill-radius);
+      padding: 0.8rem 1.65rem;
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1.5px solid transparent;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+
+    .btn-cream {
+      background-color: var(--cream);
+      color: var(--ink-black);
+    }
+    .btn-cream:hover {
+      background-color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+
+    .btn-black {
+      background-color: var(--obsidian);
+      color: var(--cream);
+    }
+    .btn-black:hover {
+      background-color: #242424;
+      transform: translateY(-1px);
+    }
+
+    .btn-ochre {
+      background-color: var(--ochre);
+      color: var(--ink-black);
+    }
+    .btn-ochre:hover {
+      background-color: var(--ochre-soft);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline-cream {
+      background-color: transparent;
+      color: var(--cream);
+      border-color: rgba(244, 248, 209, 0.45);
+    }
+    .btn-outline-cream:hover {
+      background-color: rgba(244, 248, 209, 0.14);
+      border-color: var(--cream);
+    }
+
+    .btn-outline-black {
+      background-color: transparent;
+      color: var(--ink-black);
+      border-color: rgba(10, 10, 10, 0.38);
+    }
+    .btn-outline-black:hover {
+      background-color: rgba(10, 10, 10, 0.08);
+      border-color: var(--ink-black);
+    }
+
+    /* Hero Grid */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+    .hero-copy {
+      display: grid;
+      gap: var(--space-lg);
+      align-content: start;
+    }
+    .hero-lede {
+      font-size: var(--lede-size);
+      line-height: 1.62;
+      color: var(--ink-light-muted);
+      font-weight: 500;
+      max-width: 56ch;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      align-items: center;
+    }
+
+    .hero-visual-card {
+      background: rgba(20, 15, 10, 0.65);
+      border: 1px solid rgba(244, 248, 209, 0.2);
+      border-radius: var(--card-radius);
+      padding: var(--space-md);
+      display: grid;
+      gap: var(--space-sm);
+    }
+    .hero-svg-wrap {
+      border-radius: 14px;
+      overflow: hidden;
+      background: #1C150E;
+      aspect-ratio: 16 / 10;
+      width: 100%;
+    }
+    .hero-caption-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 0.25rem 0.4rem;
+    }
+
+    /* Band 2 (Butter Cream) */
+    .cream-editorial-split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      gap: var(--space-2xl);
+      align-items: start;
+      margin-bottom: var(--space-2xl);
+    }
+    .scripture-feature-box {
+      background: rgba(10, 10, 10, 0.05);
+      border-left: 4px solid var(--obsidian);
+      border-radius: 0 var(--card-radius) var(--card-radius) 0;
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+    }
+    .evidence-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .metric-panel-cream {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(10, 10, 10, 0.14);
+      border-radius: var(--card-radius);
+      padding: var(--space-lg);
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+      box-shadow: 0 6px 18px rgba(10, 10, 10, 0.05);
+    }
+    .metric-figure {
+      font-family: var(--font-editorial);
+      font-weight: 700;
+      font-size: clamp(2.35rem, 1.9rem + 1.3vw, 3.1rem);
+      line-height: 1;
+      color: var(--ink-black);
+    }
+    .metric-figure.ochre-num { color: var(--ochre-deep); }
+    .metric-figure.crimson-num { color: var(--crimson-accent); }
+    .metric-figure.teal-num { color: var(--teal-deep); }
+    .metric-desc {
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--ink-dark-muted);
+    }
+
+    /* Band 4 (Warm Caramel / Ochre): Algorithmic Distortion Simulator */
+    .split-module {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .ochre-card {
+      background: var(--cream-soft);
+      color: var(--ink-black);
+      border: 1.5px solid rgba(10, 10, 10, 0.18);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+      box-shadow: 0 12px 28px rgba(10, 10, 10, 0.12);
+    }
+    .ochre-scripture-box {
+      background: rgba(10, 10, 10, 0.08);
+      border-left: 4px solid var(--obsidian);
+      border-radius: 0 14px 14px 0;
+      padding: var(--space-lg);
+      display: grid;
+      gap: 0.5rem;
+    }
+    .segmented-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .seg-btn {
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      min-height: 44px;
+      padding: 0.5rem 1.05rem;
+      border-radius: var(--pill-radius);
+      border: 1.5px solid var(--obsidian);
+      background: transparent;
+      color: var(--ink-black);
+      cursor: pointer;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .seg-btn:hover {
+      background: rgba(10, 10, 10, 0.08);
+    }
+    .seg-btn.is-active {
+      background: var(--obsidian);
+      color: var(--cream);
+    }
+
+    .feed-mosaic {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.55rem;
+      padding: var(--space-md);
+      background: #EFECE2;
+      border-radius: 14px;
+    }
+    .feed-tile {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 0.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      border: 1.5px solid transparent;
+    }
+    .feed-tile.friend {
+      background: #CCFBF1;
+      border-color: var(--teal-deep);
+      color: var(--teal-deep);
+    }
+    .feed-tile.influencer {
+      background: #FEF3C7;
+      border-color: var(--ochre-deep);
+      color: #78350F;
+    }
+    .feed-tile.nac {
+      background: #FEE2E2;
+      border-color: var(--crimson-accent);
+      color: var(--crimson-accent);
+    }
+
+    .nac-meter-wrap {
+      display: grid;
+      gap: 0.5rem;
+      background: #EFECE2;
+      padding: var(--space-md);
+      border-radius: 14px;
+    }
+    .nac-track {
+      height: 18px;
+      border-radius: var(--pill-radius);
+      background: #D6D1C2;
+      position: relative;
+      overflow: hidden;
+    }
+    .nac-fill {
+      height: 100%;
+      width: 18%;
+      background: var(--ochre);
+      transition: width var(--dur-med) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+    .nac-fill.danger { background: var(--crimson-accent); }
+    .nac-fill.safe { background: var(--teal-deep); }
+    .nac-threshold-marker {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 36%;
+      width: 3px;
+      background: var(--obsidian);
+    }
+
+    /* Band 5 (Obsidian): Cascades & Predatory Vectors */
+    .cascade-flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-lg);
+    }
+    .cascade-stage {
+      background: var(--obsidian-elevated);
+      border: 1px solid rgba(244, 248, 209, 0.16);
+      border-top: 4px solid var(--cream);
+      border-radius: var(--card-radius);
+      padding: var(--space-lg);
+      display: grid;
+      gap: 0.65rem;
+      align-content: start;
+    }
+    .cascade-stage.stage-2 { border-top-color: var(--ochre); }
+    .cascade-stage.stage-3 { border-top-color: var(--teal-accent); }
+    .cascade-stage.stage-4 { border-top-color: var(--crimson-light); }
+
+    .predatory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .obsidian-card {
+      background: var(--obsidian-elevated);
+      border: 1px solid rgba(244, 248, 209, 0.18);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: 0.85rem;
+      align-content: start;
+    }
+
+    /* Band 6 (Butter Cream): Midnight Shift & Stopping-Cue Lab */
+    .midnight-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .cream-panel {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(10, 10, 10, 0.15);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+      box-shadow: 0 8px 24px rgba(10, 10, 10, 0.06);
+    }
+    .toggle-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background: var(--cream-soft);
+      border: 1px solid rgba(10, 10, 10, 0.14);
+      border-radius: 14px;
+      padding: var(--space-md) var(--space-lg);
+      min-height: 64px;
+    }
+    .switch-meta {
+      display: grid;
+      gap: 0.2rem;
+    }
+    .switch-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink-black);
+    }
+    .switch-sub {
+      font-size: 0.88rem;
+      color: var(--ink-dark-muted);
+    }
+    .toggle-btn {
+      min-width: 96px;
+      min-height: 44px;
+      border-radius: var(--pill-radius);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      border: 1.5px solid var(--obsidian);
+      background: transparent;
+      color: var(--ink-black);
+      transition: all var(--dur-short) var(--ease-out);
+      flex-shrink: 0;
+    }
+    .toggle-btn[aria-pressed="true"] {
+      background: var(--obsidian);
+      color: var(--cream);
+    }
+
+    /* Band 7 (Espresso): Interactive Diagnostic Checklist */
+    .diagnostic-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .diag-list {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .diag-item-dark {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1.5px solid rgba(244, 248, 209, 0.2);
+      border-radius: 16px;
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      gap: var(--space-md);
+      align-items: flex-start;
+      cursor: pointer;
+      color: var(--ink-light);
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .diag-item-dark:hover {
+      border-color: var(--cream);
+      background: rgba(244, 248, 209, 0.1);
+    }
+    .diag-item-dark.is-checked {
+      border-color: var(--cream);
+      background: rgba(244, 248, 209, 0.16);
+    }
+
+    .diag-checkbox {
+      width: 22px;
+      height: 22px;
+      min-width: 22px;
+      margin-top: 3px;
+      accent-color: var(--ochre);
+      cursor: pointer;
+    }
+
+    .diag-summary-card {
+      background: var(--cream);
+      color: var(--ink-black);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-lg);
+      position: sticky;
+      top: 92px;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+    }
+
+    .seg-btn-light {
+      font-family: var(--font-body);
+      font-size: 0.86rem;
+      font-weight: 700;
+      min-height: 44px;
+      padding: 0.5rem 1.15rem;
+      border-radius: var(--pill-radius);
+      border: 1.5px solid rgba(244, 248, 209, 0.45);
+      background: transparent;
+      color: var(--cream);
+      cursor: pointer;
+      transition: all var(--dur-short) var(--ease-out);
+    }
+    .seg-btn-light:hover {
+      border-color: var(--cream);
+    }
+    .seg-btn-light.is-active {
+      background: var(--cream);
+      color: var(--ink-black);
+      border-color: var(--cream);
+    }
+
+    /* Band 8: Covenant Card */
+    .covenant-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: var(--space-2xl);
+      align-items: start;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      align-items: end;
+    }
+    .field-group {
+      display: grid;
+      gap: 0.4rem;
+    }
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ink-dark-muted);
+    }
+    .text-input {
+      background: #FFFFFF;
+      border: 1.5px solid rgba(10, 10, 10, 0.25);
+      border-radius: 12px;
+      color: var(--ink-black);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0 0.95rem;
+      min-height: 48px;
+      width: 100%;
+    }
+    .text-input:focus {
+      border-color: var(--obsidian);
+    }
+
+    .floating-covenant-card {
+      background: var(--cream);
+      color: var(--ink-black);
+      border-radius: 26px;
+      padding: var(--space-xl);
+      display: grid;
+      gap: var(--space-md);
+      box-shadow: 0 24px 54px rgba(0, 0, 0, 0.48);
+    }
+    .covenant-items {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.75rem;
+    }
+    .covenant-items li {
+      padding-left: var(--space-md);
+      border-left: 3px solid var(--ochre-deep);
+      font-size: 0.96rem;
+      line-height: 1.55;
+      color: var(--ink-black);
+    }
+
+    .dialogue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-xl);
+    }
+    .dialogue-card-dark {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(244, 248, 209, 0.2);
+      border-radius: var(--card-radius);
+      padding: var(--space-xl);
+      display: grid;
+      gap: 0.75rem;
+      color: var(--ink-light);
+    }
+
+    .inline-feedback {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      min-height: 1.4em;
+    }
+
+    /* Band 9 (Obsidian Footer) */
+    .site-footer-band {
+      background: var(--obsidian);
+      color: var(--ink-light);
+      border-radius: var(--band-radius);
+      padding: var(--space-3xl) 0;
+    }
+    .sources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+      gap: var(--space-xl);
+      margin-top: var(--space-xl);
+    }
+    .source-box {
+      background: var(--obsidian-elevated);
+      border: 1px solid rgba(244, 248, 209, 0.16);
+      border-radius: var(--card-radius);
+      padding: var(--space-lg);
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .cream-editorial-split,
+      .module-header-split,
+      .scrolly,
+      .steps,
+      .beat0-layout,
+      .beat2-cards,
+      .split-module,
+      .midnight-grid,
+      .diagnostic-layout,
+      .covenant-grid {
+        grid-template-columns: 1fr;
+      }
+      .evidence-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cascade-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scrolly-graphic,
+      .diag-summary-card {
+        position: static;
+        height: auto;
+        max-height: none;
+      }
+      .beat-tabs-bar {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .ratio-split-bar {
+        grid-template-columns: 1fr;
+      }
+      .steps { padding: var(--space-md) 0; }
+      .step { min-height: auto; }
+      .step-card { opacity: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .editorial-page-frame { padding: 6px 6px 16px; gap: 10px; }
+      .evidence-strip,
+      .cascade-flow {
+        grid-template-columns: 1fr;
+      }
+      .feed-mosaic { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .editorial-band { padding: var(--space-2xl) 0; }
+      .observatory-panel { padding: 1rem; border-radius: 20px; }
+      .observatory-stage { padding: 0.95rem; border-radius: 16px; }
+      .beat-tab-btn { font-size: 0.84rem; padding: 0.55rem 0.65rem; min-height: 48px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="editorial-page-frame">
+    <!-- TOP FLOATING EDITORIAL NAVIGATION -->
+    <header class="site-nav-wrapper">
+      <div class="nav-bar">
+        <div class="brand-mark">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-title">Beyond Willpower</span>
+          <span class="brand-sub">Tennessee v. Meta · Resource Hub</span>
+        </div>
+
+        <div class="nav-controls">
+          <nav class="nav-links" aria-label="Section navigation">
+            <a class="nav-link" href="#architecture">Neurology</a>
+            <a class="nav-link" href="#comparison">Algorithmic Tilt</a>
+            <a class="nav-link" href="#cascades">Cascades</a>
+            <a class="nav-link" href="#midnight">Midnight Shift</a>
+            <a class="nav-link" href="#diagnostic">Diagnostic</a>
+            <a class="nav-link" href="#covenant">Covenants</a>
+          </nav>
+          <button type="button" class="lecture-toggle-btn" id="lectureModeBtn" aria-pressed="false" onclick="toggleLectureMode()">
+            <i data-lucide="type" width="14" height="14" aria-hidden="true"></i>
+            <span>Lecture Font: Standard</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main style="display: grid; gap: 14px;">
+      <!-- BAND 1: HERO SECTION (WARM SEPIA / ESPRESSO WITH CREAM PILL CTA) -->
+      <section class="editorial-band band-sepia-hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <span class="meta-label" style="color: var(--ochre-soft);">
+                <i data-lucide="shield-alert" width="15" height="15" aria-hidden="true"></i>
+                Unsealed Evidentiary Archive · 31 Internal Studies (2018–2024)
+              </span>
+
+              <h1 class="display-title">
+                It Is Not A Failure Of <span class="accent-cream">Willpower</span>.<br>
+                It Is <span class="accent-ochre">Engineered</span> Capture.
+              </h1>
+
+              <p class="hero-lede">
+                For years, parents, educators, and youth pastors treated adolescent screen struggle as a private discipline gap. Unsealed court exhibits from <em>Tennessee v. Meta</em> reveal a stark divergence: platform architects studied the unfinished teen brain and built variable-reward feeds to outpace cognitive restraint.
+              </p>
+
+              <p class="editorial-italic-quote" style="color: var(--cream); font-size: 1.35rem;">
+                “Shame isolates families. Truth equips communities to guard the developing mind with grace.”
+              </p>
+
+              <div class="hero-actions">
+                <a class="btn btn-cream" href="#architecture">
+                  <i data-lucide="compass" width="17" height="17" aria-hidden="true"></i>
+                  Examine the Exhibits
+                </a>
+                <a class="btn btn-outline-cream" href="#covenant">
+                  <i data-lucide="file-check-2" width="17" height="17" aria-hidden="true"></i>
+                  Build a Family Covenant
+                </a>
+              </div>
+            </div>
+
+            <div class="hero-visual-card">
+              <div class="hero-svg-wrap">
+                <svg viewBox="0 0 800 500" width="100%" height="100%" role="img" aria-label="Editorial illustration contrasting late-night screen exposure with embodied community sanctuary">
+                  <defs>
+                    <radialGradient id="warmSepiaBurst" cx="72%" cy="32%" r="58%">
+                      <stop offset="0%" stop-color="#C88641" stop-opacity="0.45" />
+                      <stop offset="50%" stop-color="#F4F8D1" stop-opacity="0.14" />
+                      <stop offset="100%" stop-color="#1C150E" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+
+                  <rect width="800" height="500" fill="#1C150E" />
+                  <rect width="800" height="500" fill="url(#warmSepiaBurst)" />
+
+                  <line x1="40" y1="412" x2="760" y2="412" stroke="rgba(244,248,209,0.25)" stroke-width="1.5" />
+                  <line x1="40" y1="86" x2="760" y2="86" stroke="rgba(244,248,209,0.16)" stroke-width="1" stroke-dasharray="5 6" />
+
+                  <!-- Left Scene: Lone 11 PM Screen Loop -->
+                  <g>
+                    <rect x="116" y="206" width="98" height="166" rx="16" fill="#0A0A0A" stroke="#F4F8D1" stroke-width="2.5" />
+                    <rect x="126" y="220" width="78" height="136" rx="8" fill="rgba(244,248,209,0.12)" />
+                    <line x1="140" y1="248" x2="190" y2="248" stroke="#F4F8D1" stroke-width="3" stroke-linecap="round" />
+                    <line x1="140" y1="272" x2="180" y2="272" stroke="#C88641" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="165" cy="316" r="18" fill="none" stroke="#C88641" stroke-width="2.5" stroke-dasharray="30 12" />
+                    <text x="165" y="186" text-anchor="middle" fill="#F4F8D1" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13" letter-spacing="0.1em">23:00 LOOP</text>
+                  </g>
+
+                  <!-- Centre Bridge: 80% Maturing Cortex Waveform -->
+                  <path d="M 242 290 C 312 290, 325 182, 405 182 C 485 182, 505 290, 560 290" fill="none" stroke="#C88641" stroke-width="3" stroke-dasharray="7 5" />
+                  <circle cx="405" cy="182" r="8" fill="#F4F8D1" />
+                  <text x="405" y="156" text-anchor="middle" fill="#FAF8EE" font-family="JetBrains Mono, monospace" font-weight="700" font-size="12" letter-spacing="0.08em">FRONTAL CORTEX · 20% GAP</text>
+
+                  <!-- Right Scene: Embodied Warm Gathering / Sanctuary -->
+                  <g>
+                    <circle cx="620" cy="244" r="23" fill="#2E2318" stroke="#F4F8D1" stroke-width="2.5" />
+                    <path d="M 586 412 C 586 318, 654 318, 654 412" fill="#3D2E20" stroke="#F4F8D1" stroke-width="2.5" />
+                    <circle cx="550" cy="264" r="19" fill="#2E2318" stroke="#C88641" stroke-width="2.5" />
+                    <path d="M 520 412 C 520 332, 580 332, 580 412" fill="#2E2318" stroke="#C88641" stroke-width="2.5" />
+                    <circle cx="690" cy="262" r="20" fill="#2E2318" stroke="#F4F8D1" stroke-width="2.5" />
+                    <path d="M 658 412 C 658 330, 722 330, 722 412" fill="#2E2318" stroke="#F4F8D1" stroke-width="2.5" />
+                    <text x="620" y="192" text-anchor="middle" fill="#F4F8D1" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13" letter-spacing="0.1em">EMBODIED SANCTUARY</text>
+                  </g>
+                </svg>
+              </div>
+              <div class="hero-caption-row">
+                <span class="meta-label" style="color: var(--ink-light-muted);">Evidence Synthesis · NYU Stern Tech &amp; Society Lab</span>
+                <span class="exhibit-pill ochre">31 Internal Studies</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 2: PALE CHARTREUSE / BUTTER-CREAM (THEOLOGICAL FOUNDATION & 4 BENCHMARKS) -->
+      <section class="editorial-band band-cream">
+        <div class="container">
+          <div class="cream-editorial-split">
+            <div style="display: grid; gap: var(--space-md);">
+              <span class="meta-label" style="color: var(--ochre-deep);">Theological Foundation · Inherent Worth vs. Engineered Metrics</span>
+              <h2 class="section-title" style="color: var(--ink-black);">
+                Identity Before Validation
+              </h2>
+              <p class="editorial-italic-quote" style="color: var(--ink-dark-muted);">
+                “Worth is bestowed before a single Like is ever counted.”
+              </p>
+              <span class="meta-label" style="color: var(--ink-black);">Psalm 139:13–14</span>
+            </div>
+
+            <div class="scripture-feature-box">
+              <blockquote style="margin: 0; font-family: var(--font-editorial); font-size: clamp(1.35rem, 1.15rem + 0.65vw, 1.75rem); line-height: 1.45; color: var(--ink-black);">
+                “For you created my inmost being; you knit me together in my mother’s womb. I praise you because I am <em style="color: var(--ochre-deep);">fearfully and wonderfully made</em>; your works are wonderful, I know that full well.”
+              </blockquote>
+            </div>
+          </div>
+
+          <!-- Key Evidentiary Benchmarks -->
+          <div class="evidence-strip" aria-label="Core unsealed research metrics">
+            <article class="metric-panel-cream">
+              <span class="meta-label" style="color: var(--ink-dark-muted);">Exhibit 13 · Brain Maturity</span>
+              <div class="metric-figure">20% Gap</div>
+              <p class="metric-desc">Adolescent brains are ~80% mature; the unformed 20% governs frontal-cortex impulse control and foresight.</p>
+            </article>
+            <article class="metric-panel-cream">
+              <span class="meta-label" style="color: var(--ochre-deep);">Exhibit 44 &amp; 48 · Feed Tilt</span>
+              <div class="metric-figure ochre-num">4.42×</div>
+              <p class="metric-desc">Higher odds of negative social comparison for ages 13–17 vs. adults 25+, fed by a 5:1 influencer-to-friend ratio.</p>
+            </article>
+            <article class="metric-panel-cream">
+              <span class="meta-label" style="color: var(--crimson-accent);">Exhibit 51 · BEEF Survey</span>
+              <div class="metric-figure crimson-num">13%</div>
+              <p class="metric-desc">Of 13–15-year-olds encounter unwanted sexual advances weekly (68.6% inside DMs; 93.8% from strangers).</p>
+            </article>
+            <article class="metric-panel-cream">
+              <span class="meta-label" style="color: var(--teal-deep);">SSI Data · Self-Harm Share</span>
+              <div class="metric-figure teal-num">60%</div>
+              <p class="metric-desc">Teens form 18% of daily active users yet account for 60% of users admitting or promoting self-harm and suicide.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 3: PITCH-BLACK OBSIDIAN (MODULE 01: SCROLLYTELLING ARCHITECTURE) -->
+      <section class="editorial-band band-obsidian" id="architecture">
+        <div class="container">
+          <div class="module-header-split">
+            <div style="display: grid; gap: 0.6rem;">
+              <span class="meta-label" style="color: var(--ochre-soft);">Module 01 · Unsealed Corporate Exhibits</span>
+              <h2 class="section-title" style="color: var(--cream);">
+                Inside the Architecture of Adolescent Capture
+              </h2>
+            </div>
+            <p style="color: var(--ink-light-muted);">
+              Scroll through the four evidentiary mechanisms documented inside Meta’s own neuroscience slides, well-being working groups, and longitudinal trials. Click any beat or use the step markers below the observatory display.
+            </p>
+          </div>
+
+          <div class="scrolly">
+            <figure class="scrolly-graphic">
+              <div class="observatory-panel" id="observatoryPanel">
+                <div class="observatory-header">
+                  <span class="obs-phase-badge" id="obsPhaseLabel">
+                    <span class="obs-phase-dot" aria-hidden="true"></span>
+                    <span>Beat 01 / 04 · Neurology</span>
+                  </span>
+                  <span class="exhibit-pill ochre" id="obsExhibitBadge">Exhibit 13 &amp; 19</span>
+                </div>
+
+                <!-- Large Thumb-Friendly Beat Selector Tabs -->
+                <div class="beat-tabs-bar" role="group" aria-label="Select evidentiary beat">
+                  <button type="button" class="beat-tab-btn is-active" data-beat-btn="0" onclick="jumpToBeat(0)">01 · Neurology</button>
+                  <button type="button" class="beat-tab-btn" data-beat-btn="1" onclick="jumpToBeat(1)">02 · Comparison</button>
+                  <button type="button" class="beat-tab-btn" data-beat-btn="2" onclick="jumpToBeat(2)">03 · DM Risk</button>
+                  <button type="button" class="beat-tab-btn" data-beat-btn="3" onclick="jumpToBeat(3)">04 · 11 PM Loop</button>
+                </div>
+
+                <div class="observatory-stage" id="obsStage">
+                  <!-- BEAT 01: ENLARGED HIGH-CLARITY NEUROLOGY PANEL -->
+                  <div class="obs-beat-view" id="vizBeat0">
+                    <div class="obs-beat-kicker">Adolescent Neurological Profile · Unsealed Exhibit 13</div>
+                    <div class="beat0-layout">
+                      <div class="beat0-dial-box">
+                        <svg viewBox="0 0 320 290" width="100%" height="100%" style="max-width: 320px;" role="img" aria-label="80 percent reward and novelty zone versus 20 percent unformed frontal cortex gap">
+                          <circle cx="160" cy="145" r="122" fill="#1E1C18" stroke="rgba(244,248,209,0.28)" stroke-width="2.5" />
+                          <!-- 80% Emotion & Dopamine Limbic Zone -->
+                          <path d="M 160 145 L 160 23 A 122 122 0 1 1 44 183 Z" fill="rgba(20,184,166,0.24)" stroke="#14B8A6" stroke-width="3" />
+                          <!-- 20% Unformed Frontal Cortex Gap -->
+                          <path d="M 160 145 L 44 183 A 122 122 0 0 1 160 23 Z" fill="rgba(200,134,65,0.34)" stroke="#C88641" stroke-width="3.5" stroke-dasharray="7 5" />
+
+                          <text x="195" y="158" text-anchor="middle" fill="#FAF8EE" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="48">80%</text>
+                          <text x="195" y="184" text-anchor="middle" fill="#14B8A6" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13" letter-spacing="0.05em">REWARD &amp; NOVELTY</text>
+
+                          <text x="102" y="102" text-anchor="middle" fill="#F4F8D1" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="38">20%</text>
+                          <text x="102" y="124" text-anchor="middle" fill="#F4F8D1" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11.5" letter-spacing="0.04em">FRONTAL GAP</text>
+                        </svg>
+                      </div>
+
+                      <div class="obs-stat-stack">
+                        <div class="obs-stat-tile">
+                          <span class="obs-tile-label" style="color: var(--ochre-soft);">Impulse &amp; Foresight</span>
+                          <div class="obs-tile-big">Still wiring until mid-20s</div>
+                        </div>
+                        <div class="obs-stat-tile">
+                          <span class="obs-tile-label" style="color: var(--teal-accent);">Dopamine Sensitivity</span>
+                          <div class="obs-tile-big">“Insatiable appetite for novelty”</div>
+                        </div>
+                        <div class="obs-stat-tile highlight-cream">
+                          <span class="obs-tile-label" style="color: var(--cream);">Clinician Consensus</span>
+                          <div class="obs-tile-big" style="color: var(--cream);">85% agree IG can be addictive</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- BEAT 02: ENLARGED ALGORITHMIC TILT & NAC BARS -->
+                  <div class="obs-beat-view" id="vizBeat1" style="display: none;">
+                    <div class="obs-beat-kicker">Feed Architecture &amp; Appearance Comparison · Exhibits 44–50</div>
+
+                    <div style="display: grid; gap: 0.5rem;">
+                      <span class="obs-tile-label" style="color: var(--ink-light-muted);">1 Friend Post vs. 5 Celebrity / Top Accounts</span>
+                      <div class="ratio-split-bar">
+                        <div class="ratio-block" style="background: rgba(20,184,166,0.22); border: 2px solid #14B8A6; color: #14B8A6;">
+                          1× FRIEND
+                        </div>
+                        <div class="ratio-block" style="background: rgba(200,134,65,0.28); border: 2px solid #C88641; color: #F4F8D1;">
+                          5× TOP ACCOUNTS, INFLUENCERS &amp; CELEBRITIES
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="nac-bars-grid">
+                      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                        <span class="obs-tile-label" style="color: var(--ink-light-muted);">Negative Appearance Comparison (NAC) by Surface</span>
+                        <span class="exhibit-pill">11–13% Distress Threshold</span>
+                      </div>
+
+                      <div class="nac-bar-row">
+                        <div class="nac-bar-head">
+                          <span style="color: var(--ink-light);">STORIES</span>
+                          <span style="color: var(--teal-accent);">9%</span>
+                        </div>
+                        <div class="nac-bar-bg">
+                          <div class="nac-bar-val" style="width: 36%; background: #14B8A6;"></div>
+                        </div>
+                      </div>
+
+                      <div class="nac-bar-row">
+                        <div class="nac-bar-head">
+                          <span style="color: var(--ink-light);">MAIN FEED</span>
+                          <span style="color: var(--ochre-soft);">14%</span>
+                        </div>
+                        <div class="nac-bar-bg">
+                          <div class="nac-bar-val" style="width: 56%; background: #C88641;"></div>
+                        </div>
+                      </div>
+
+                      <div class="nac-bar-row">
+                        <div class="nac-bar-head">
+                          <span style="color: var(--ink-light);">EXPLORE (TEEN GIRLS)</span>
+                          <span style="color: var(--crimson-light);">18% (PAST THRESHOLD)</span>
+                        </div>
+                        <div class="nac-bar-bg">
+                          <div class="nac-bar-val" style="width: 72%; background: #F87171;"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- BEAT 03: ENLARGED PRIVATE CHATS & SELF-HARM EXPOSURE -->
+                  <div class="obs-beat-view" id="vizBeat2" style="display: none;">
+                    <div class="obs-beat-kicker" style="color: var(--crimson-light);">Private Chats &amp; Self-Harm Exposure · Exhibits 26, 45 &amp; 51</div>
+
+                    <div class="beat2-cards">
+                      <div class="obs-stat-tile">
+                        <div class="obs-tile-hero-num" style="color: var(--crimson-light);">68.6%</div>
+                        <div class="obs-tile-big" style="font-size: 1.25rem;">Unwanted sexual advances occur inside Direct Messages</div>
+                        <span class="obs-tile-label" style="color: var(--teal-accent); margin-top: 0.35rem;">93.8% FROM STRANGERS</span>
+                      </div>
+
+                      <div class="obs-stat-tile">
+                        <div class="obs-tile-hero-num" style="color: var(--ochre-soft);">37–40%</div>
+                        <div class="obs-tile-big" style="font-size: 1.25rem;">Of all Instagram bullying takes place in private DMs</div>
+                        <span class="obs-tile-label" style="color: var(--cream); margin-top: 0.35rem;">BOYS 13–15: 14.4% VS GIRLS 8.6%</span>
+                      </div>
+                    </div>
+
+                    <div class="obs-stat-tile highlight-crimson">
+                      <span class="obs-tile-label" style="color: var(--crimson-light);">Silent Crisis &amp; Help-Seeking Gap (SSI Data)</span>
+                      <div class="obs-tile-big" style="color: var(--ink-light);">60% OF SELF-HARM CONTENT FROM TEENS</div>
+                      <p style="font-size: 1rem; color: var(--ink-light-muted);">
+                        Girls seek help at 41% vs. Boys at 16% — leaving struggling boys hidden.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- BEAT 04: ENLARGED MIDNIGHT SHIFT & 24H CURVE -->
+                  <div class="obs-beat-view" id="vizBeat3" style="display: none;">
+                    <div class="obs-beat-kicker">The Midnight Shift &amp; Stopping-Cue Erosion · Exhibits 27, 34–40</div>
+
+                    <div class="beat0-dial-box" style="padding: 1rem;">
+                      <svg viewBox="0 0 600 220" width="100%" height="100%" role="img" aria-label="24-hour engagement curve peaking at 11 PM and extending through 12 to 4 AM">
+                        <line x1="36" y1="168" x2="564" y2="168" stroke="rgba(244,248,209,0.32)" stroke-width="2" />
+                        <rect x="330" y="22" width="226" height="146" rx="10" fill="rgba(248,113,113,0.18)" stroke="#F87171" stroke-width="2" stroke-dasharray="6 4" />
+                        <text x="443" y="48" text-anchor="middle" fill="#F87171" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">11 PM PEAK &amp; 12–4 AM WINDOW</text>
+                        <path d="M 44 148 C 118 138, 180 104, 262 110 C 322 114, 360 66, 408 68 C 458 70, 498 112, 548 150" fill="none" stroke="#F4F8D1" stroke-width="4.5" stroke-linecap="round" />
+                        <circle cx="408" cy="68" r="10" fill="#C88641" stroke="#F4F8D1" stroke-width="3.5" />
+                        <text x="408" y="102" text-anchor="middle" fill="#F4F8D1" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">“REALLY INTO IG AT 11PM”</text>
+                        <text x="48" y="196" fill="#DDD7C7" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">08:00</text>
+                        <text x="195" y="196" fill="#DDD7C7" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">15:00</text>
+                        <text x="342" y="196" fill="#F4F8D1" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">23:00</text>
+                        <text x="490" y="196" fill="#F87171" font-family="JetBrains Mono, monospace" font-weight="700" font-size="13">02:00</text>
+                      </svg>
+                    </div>
+
+                    <div class="obs-stat-tile highlight-cream">
+                      <span class="obs-tile-label" style="color: var(--ochre-soft);">Late-Night Circadian Disruption</span>
+                      <div class="obs-tile-big" style="font-size: 1.32rem;">36% of users (63M) active 12–4 AM · 51% clinician-reported school disruption</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="observatory-footer">
+                  <span class="meta-label" id="obsFooterCaption" style="color: var(--cream);">80% mature brain · 20% frontal cortex gap</span>
+                  <div style="display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn btn-outline-cream" style="min-height: 42px; padding: 0.45rem 1rem; font-size: 0.82rem;" onclick="cycleBeat(-1)">← Previous Beat</button>
+                    <button type="button" class="btn btn-cream" style="min-height: 42px; padding: 0.45rem 1.1rem; font-size: 0.82rem;" onclick="cycleBeat(1)">Next Beat →</button>
+                  </div>
+                </div>
+              </div>
+            </figure>
+
+            <div class="steps" id="stepsContainer">
+              <div class="step is-active" data-step="0">
+                <article class="step-card" onclick="jumpToBeat(0)">
+                  <span class="exhibit-pill">Exhibits 13 &amp; 19 · Teen Ecosystem (2020)</span>
+                  <h3 class="card-title" style="color: var(--cream);">01. The <em style="color: var(--ochre-soft);">20% Frontal Cortex</em> Gap</h3>
+                  <p style="color: var(--ink-light);">
+                    Internal corporate neuroscience decks document that the teenage brain is roughly 80% mature. The unformed 20% resides in the frontal cortex—governing foresight, judgement, and impulse control—while dopamine reward pathways are hyper-sensitive.
+                  </p>
+                  <p style="color: var(--ink-light-muted);">
+                    Identifying teens’ “insatiable appetite for novelty,” strategists embedded discovery feeds across every surface. In 2022, 56% of surveyed teens struggled to manage their time and 23% opened the app automatically every day without realising it.
+                  </p>
+                  <blockquote class="verbatim-quote" style="margin: 0;">
+                    “Due to the immature brain they have a much harder time stopping even though they want to.” — S7.1 Teen Ecosystem
+                  </blockquote>
+                </article>
+              </div>
+
+              <div class="step" data-step="1">
+                <article class="step-card" onclick="jumpToBeat(1)">
+                  <span class="exhibit-pill ochre">Exhibits 44–50 &amp; 69–75 · High-NAC Series</span>
+                  <h3 class="card-title" style="color: var(--cream);">02. Comparison <em style="color: var(--ochre-soft);">By Design</em></h3>
+                  <p style="color: var(--ink-light);">
+                    Adolescents aged 13–17 face 4.42 times higher odds of negative social comparison than adults 25 and older—a link internal researchers confirmed as causal. For every post a teenage girl views from real friends, the algorithm serves 5× as many from top influencers and celebrities.
+                  </p>
+                  <p style="color: var(--ink-light-muted);">
+                    While average users saw 14% Negative Appearance Comparison (NAC) content, teen girls encountered 18%—surpassing the 11–13% threshold where a majority report distress. Automated safety classifiers caught just 1.5% of eating-disorder-adjacent triggering feeds.
+                  </p>
+                  <blockquote class="verbatim-quote" style="margin: 0;">
+                    “We made body image issues worse for 1 in 3 teen girls.” — S1.6 Hard Life Moments (2019)
+                  </blockquote>
+                </article>
+              </div>
+
+              <div class="step" data-step="2">
+                <article class="step-card" onclick="jumpToBeat(2)">
+                  <span class="exhibit-pill">Exhibits 26, 45 &amp; 51 · BEEF Survey (237,923 Users)</span>
+                  <h3 class="card-title" style="color: var(--cream);">03. Dark Corridors &amp; <em style="color: var(--ochre-soft);">DM Exploitation</em></h3>
+                  <p style="color: var(--ink-light);">
+                    Internal findings map how appearance pressure cascades into low self-esteem, anxiety, depression, and self-harm. In the BEEF Survey, 13% of 13–15-year-olds reported unwanted sexual advances every week (13.9% in a 7-day window, alongside 19.2% encountering unwanted nudity)—68.6% inside private DMs and 93.8% from strangers.
+                  </p>
+                  <p style="color: var(--ink-light-muted);">
+                    Meanwhile, 37–40% of bullying hides inside DMs, where 13–15-year-old boys experience higher targeting than girls (14.4% vs. 8.6%) yet seek help at less than half the rate (16% vs. 41%).
+                  </p>
+                  <blockquote class="verbatim-quote" style="margin: 0;">
+                    “Teens sorely lack empathetic voices to whom they can turn for support.” — S1.4 Teen Mental Health
+                  </blockquote>
+                </article>
+              </div>
+
+              <div class="step" data-step="3">
+                <article class="step-card" onclick="jumpToBeat(3)">
+                  <span class="exhibit-pill ochre">Exhibits 27, 34–40 &amp; 84–88 · Well-being Working Group</span>
+                  <h3 class="card-title" style="color: var(--cream);">04. The <em style="color: var(--ochre-soft);">11:00 PM</em> Midnight Shift</h3>
+                  <p style="color: var(--ink-light);">
+                    Heavy adolescent use reaches 3 to 5+ hours daily, peaking late at night—summarised internally as “Teens are really into using IG at 11pm.” Behavioural logs confirm 36% of users (63 million people) scroll between 12 AM and 4 AM.
+                  </p>
+                  <p style="color: var(--ink-light-muted);">
+                    Internal safety teams flagged infinite scrolling, video autoplay, and disappearing Stories as primary hazards that erase natural stopping cues, even as leadership debated “unshipping” Time Spent trackers to reduce user friction.
+                  </p>
+                  <blockquote class="verbatim-quote" style="margin: 0;">
+                    “If the results are bad and we don’t publish… is it going to look like tobacco companies?” — Internal memo on Project Mercury
+                  </blockquote>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 4: WARM CARAMEL / OCHRE (MODULE 02: ALGORITHMIC DISTORTION SIMULATOR) -->
+      <section class="editorial-band band-ochre" id="comparison">
+        <div class="container">
+          <div class="split-module">
+            <div class="hero-copy">
+              <span class="meta-label" style="color: var(--ink-black);">Module 02 · Algorithmic Distortion Simulator</span>
+              <h2 class="section-title" style="color: var(--ink-black);">The 5:1 Influencer Tilt &amp; The 18% Harm Line</h2>
+              <p style="color: var(--ink-black);">
+                Meta’s <em>High-NAC Series</em> (Exhibits 47–50) proved that algorithmic recommendations push appearance-comparison media well past the preferences teenagers consciously follow. Toggle between surfaces below to inspect what a 12-tile sampling of a teen girl’s screen looks like in practice.
+              </p>
+              <p style="color: var(--ink-dark-muted);">
+                Notice how <strong>Explore</strong> drives Negative Appearance Comparison exposure to <strong>18%</strong>—crossing the internal <strong>11–13%</strong> threshold where a majority of young women report body distress at least half the time—whereas real-life close friends and hobby accounts cause no harmful comparison spike.
+              </p>
+              <div class="ochre-scripture-box">
+                <span class="meta-label" style="color: var(--ink-black);">Galatians 1:10 · Audience of One</span>
+                <p style="font-family: var(--font-editorial); font-size: 1.35rem; font-weight: 600; color: var(--ink-black);">
+                  “Am I now trying to win the approval of human beings, or of God?”
+                </p>
+                <span style="font-family: var(--font-editorial); font-style: italic; font-size: 1.08rem; color: var(--ink-dark-muted);">
+                  Beauty filters and AR distortion tools trade embodied dignity for algorithmic approval.
+                </span>
+              </div>
+            </div>
+
+            <div class="ochre-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); flex-wrap: wrap;">
+                <span class="meta-label" style="color: var(--ink-black);">Select Platform Surface</span>
+                <span class="exhibit-pill dark-pill" id="simExhibitTag">Exhibit 48 &amp; 50</span>
+              </div>
+
+              <div class="segmented-controls" role="group" aria-label="Choose Instagram feed surface">
+                <button type="button" class="seg-btn is-active" data-surface="explore" onclick="setFeedSurface('explore')">Explore Tab (Default)</button>
+                <button type="button" class="seg-btn" data-surface="feed" onclick="setFeedSurface('feed')">Main Feed</button>
+                <button type="button" class="seg-btn" data-surface="stories" onclick="setFeedSurface('stories')">Stories</button>
+                <button type="button" class="seg-btn" data-surface="friends" onclick="setFeedSurface('friends')">Close Friends &amp; Hobbies</button>
+              </div>
+
+              <div>
+                <span class="meta-label" id="mosaicLabel" style="margin-bottom: 0.45rem; color: var(--ink-dark-muted);">12-Post Sample · 5:1 Influencer-to-Friend Skew + High-NAC</span>
+                <div class="feed-mosaic" id="feedMosaic" aria-live="polite"></div>
+              </div>
+
+              <div class="nac-meter-wrap">
+                <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem;">
+                  <span class="meta-label" style="color: var(--ink-black);">Negative Appearance Comparison (NAC) Exposure</span>
+                  <span class="meta-label" id="nacPercentReadout" style="color: var(--crimson-accent); font-size: 0.98rem;">18% · Critical</span>
+                </div>
+                <div class="nac-track">
+                  <div class="nac-fill danger" id="nacBarFill" style="width: 60%;"></div>
+                  <div class="nac-threshold-marker" title="11-13% Internal Harm Threshold"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; color: var(--ink-dark-muted);">
+                  <span>0% Safe Baseline</span>
+                  <span style="color: var(--ink-black);">11–13% Harm Threshold</span>
+                  <span>30% Scale</span>
+                </div>
+              </div>
+
+              <p id="simExplanation" style="font-size: 0.98rem; color: var(--ink-dark-muted);">
+                On Explore, teen girls encounter 18% High-NAC content alongside a 5:1 ratio of celebrity/top accounts over real friends. Teens already struggling with body dissatisfaction are served nearly 3× as much triggering material.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 5: PITCH-BLACK OBSIDIAN (MODULE 03: MENTAL HEALTH CASCADES & HIDDEN VECTORS) -->
+      <section class="editorial-band band-obsidian" id="cascades">
+        <div class="container">
+          <div class="module-header-split">
+            <div style="display: grid; gap: 0.6rem;">
+              <span class="meta-label" style="color: var(--ochre-soft);">Module 03 · Downstream Mental Health &amp; Predatory Realities</span>
+              <h2 class="section-title" style="color: var(--cream);">From Body Insecurity to Silent Crisis</h2>
+            </div>
+            <p style="color: var(--ink-light-muted);">
+              Exhibit 26 (<em>Teen Mental Health Deep Dive</em>) traced a clear sequence from algorithmic pressure to acute psychiatric risk, compounded by encrypted DM spaces and visual hashtags hidden from adults.
+            </p>
+          </div>
+
+          <div class="cascade-flow">
+            <article class="cascade-stage">
+              <span class="meta-label" style="color: var(--cream);">Stage 01 · Pressure</span>
+              <h3 class="card-title" style="font-size: 1.5rem; color: var(--cream);">Perfection Trap</h3>
+              <p style="font-size: 0.96rem; color: var(--ink-light-muted);">
+                <strong style="color: var(--cream);">67%</strong> of surveyed teens felt compelled to project a perfect image and hide honest emotions; <strong style="color: var(--cream);">70%</strong> felt “not good enough” or “not attractive.”
+              </p>
+            </article>
+            <article class="cascade-stage stage-2">
+              <span class="meta-label" style="color: var(--ochre-soft);">Stage 02 · Internalisation</span>
+              <h3 class="card-title" style="font-size: 1.5rem; color: var(--cream);">Body Dysmorphia</h3>
+              <p style="font-size: 0.96rem; color: var(--ink-light-muted);">
+                AR beauty filters and facial distortion tools (Exhibits 69–75) fuel eating-disorder risk and paradoxically <strong style="color: var(--cream);">increase social rejection</strong>.
+              </p>
+            </article>
+            <article class="cascade-stage stage-3">
+              <span class="meta-label" style="color: var(--teal-accent);">Stage 03 · Clinical Toll</span>
+              <h3 class="card-title" style="font-size: 1.5rem; color: var(--cream);">Anxiety &amp; Isolation</h3>
+              <p style="font-size: 0.96rem; color: var(--ink-light-muted);">
+                <strong style="color: var(--cream);">82%</strong> experienced emotional distress in the past month; <strong style="color: var(--cream);">81%</strong> of global clinicians confirm social media exacerbates mental health struggles.
+              </p>
+            </article>
+            <article class="cascade-stage stage-4">
+              <span class="meta-label" style="color: var(--crimson-light);">Stage 04 · Contagion</span>
+              <h3 class="card-title" style="font-size: 1.5rem; color: var(--cream);">NSSI &amp; Coded Tags</h3>
+              <p style="font-size: 0.96rem; color: var(--ink-light-muted);">
+                Viewing online self-injury triggers offline self-harm (Exhibit 45). Youth bypass moderation via anonymous secondary accounts and coded visual hashtags.
+              </p>
+            </article>
+          </div>
+
+          <div class="predatory-grid">
+            <article class="obsidian-card">
+              <span class="meta-label" style="color: var(--crimson-light);">Predatory Contact · BEEF Survey (2021)</span>
+              <h3 class="card-title" style="font-size: 1.55rem; color: var(--cream);">DMs Are the Primary Zone of Exploitation</h3>
+              <p style="color: var(--ink-light-muted);">
+                Among 13–15-year-olds, <strong style="color: var(--cream);">13% weekly</strong> (13.9% in a 7-day window) experienced unwanted sexual advances and <strong style="color: var(--cream);">19.2%</strong> encountered unwanted nudity. Of those advances, <strong style="color: var(--cream);">68.6%</strong> occurred in DM/chat and <strong style="color: var(--cream);">93.8%</strong> came from strangers.
+              </p>
+            </article>
+
+            <article class="obsidian-card">
+              <span class="meta-label" style="color: var(--ochre-soft);">Household Dynamics · Exhibit 4 &amp; MYST (2023)</span>
+              <h3 class="card-title" style="font-size: 1.55rem; color: var(--cream);">Releasing Parental Shame, Restoring Leadership</h3>
+              <p style="color: var(--ink-light-muted);">
+                Meta viewed teens as <strong style="color: var(--cream);">“household influencers”</strong> who pull siblings and parents onto the platform. Yet the 2023 <em>MYST</em> study of 4,000 teens found <strong style="color: var(--cream);">no association</strong> between parental supervision alone and compulsive usage—proving parents are fighting platform architecture, not their own inadequacy.
+              </p>
+            </article>
+
+            <article class="obsidian-card">
+              <span class="meta-label" style="color: var(--teal-accent);">Suppressed Proof · Project Mercury &amp; Daisy</span>
+              <h3 class="card-title" style="font-size: 1.55rem; color: var(--cream);">Interventions Work When Enabled</h3>
+              <p style="color: var(--ink-light-muted);">
+                <em>Project Mercury</em> proved a <strong style="color: var(--cream);">7-day break</strong> causally lowered depression, anxiety, and loneliness. <em>Project Daisy</em> proved hiding Like counts reduced negative comparison—yet Meta buried it as opt-in after a ~1% ad revenue dip (only <strong style="color: var(--cream);">3.48%</strong> of youth turned it on).
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 6: PALE BUTTER-CREAM (MODULE 04: THE MIDNIGHT SHIFT & STOPPING-CUE LAB) -->
+      <section class="editorial-band band-cream" id="midnight">
+        <div class="container">
+          <div class="midnight-grid">
+            <div class="cream-panel">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+                <span class="meta-label" style="color: var(--ochre-deep);">Module 04 · Stopping-Cue Intervention Lab</span>
+                <span class="exhibit-pill dark-pill">Exhibits 27, 84–88, Daisy &amp; Mercury</span>
+              </div>
+              <h2 class="section-title" style="color: var(--ink-black);">Rebuilding Friction Against the 11 PM Spike</h2>
+              <p style="color: var(--ink-dark-muted);">
+                Platform defaults strip away natural stopping cues. Toggle the protective interventions below to observe how restoring deliberate friction shifts an adolescent’s estimated daily vulnerability index and sleep margin.
+              </p>
+
+              <div class="toggle-list" id="cueToggleList">
+                <div class="switch-row">
+                  <div class="switch-meta">
+                    <span class="switch-title">9:00 PM Bedroom Device Ban</span>
+                    <span class="switch-sub">Eliminates the 11 PM peak &amp; 12–4 AM scrolling window</span>
+                  </div>
+                  <button type="button" class="toggle-btn" id="tog-curfew" aria-pressed="false" onclick="toggleIntervention('curfew')">Off</button>
+                </div>
+
+                <div class="switch-row">
+                  <div class="switch-meta">
+                    <span class="switch-title">Manual “Hide Like Counts” (Project Daisy)</span>
+                    <span class="switch-sub">Dampens social comparison metrics buried in settings</span>
+                  </div>
+                  <button type="button" class="toggle-btn" id="tog-daisy" aria-pressed="false" onclick="toggleIntervention('daisy')">Off</button>
+                </div>
+
+                <div class="switch-row">
+                  <div class="switch-meta">
+                    <span class="switch-title">Grayscale + Silence Non-Human Notifications</span>
+                    <span class="switch-sub">Counters dopamine triggers &amp; notification dependency (Ex. 25)</span>
+                  </div>
+                  <button type="button" class="toggle-btn" id="tog-grayscale" aria-pressed="false" onclick="toggleIntervention('grayscale')">Off</button>
+                </div>
+
+                <div class="switch-row">
+                  <div class="switch-meta">
+                    <span class="switch-title">Private Account &amp; DM Friends-Only Lock</span>
+                    <span class="switch-sub">Blocks the 93.8% stranger-driven DM solicitation vector</span>
+                  </div>
+                  <button type="button" class="toggle-btn" id="tog-dm" aria-pressed="false" onclick="toggleIntervention('dm')">Off</button>
+                </div>
+
+                <div class="switch-row">
+                  <div class="switch-meta">
+                    <span class="switch-title">Under 2-Hour Cap &amp; 7-Day Group Reset (Mercury)</span>
+                    <span class="switch-sub">Crosses below the 2-hour wellbeing tipping point</span>
+                  </div>
+                  <button type="button" class="toggle-btn" id="tog-mercury" aria-pressed="false" onclick="toggleIntervention('mercury')">Off</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="cream-panel">
+              <span class="meta-label" style="color: var(--ink-black);">Live Well-Being Telemetry Estimate</span>
+              <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md);">
+                <div class="metric-panel-cream" style="background: var(--cream-soft);">
+                  <span class="meta-label" style="color: var(--ink-dark-muted);">Est. Daily Exposure</span>
+                  <div class="metric-figure crimson-num" id="labHoursOut">4.2 hrs</div>
+                  <span class="metric-desc" id="labHoursNote">Above 2-hr distress tipping point</span>
+                </div>
+                <div class="metric-panel-cream" style="background: var(--cream-soft);">
+                  <span class="meta-label" style="color: var(--ink-dark-muted);">Sleep Protection</span>
+                  <div class="metric-figure crimson-num" id="labSleepOut">At Risk</div>
+                  <span class="metric-desc" id="labSleepNote">Exposed to 11 PM – 4 AM loop</span>
+                </div>
+              </div>
+
+              <!-- SVG Sleep & Friction Dial -->
+              <div style="background: var(--obsidian); border-radius: 16px; padding: var(--space-lg); min-height: 215px; display: grid; place-items: center;">
+                <svg viewBox="0 0 420 175" width="100%" height="100%" role="img" aria-label="Friction protection gauge">
+                  <path d="M 50 145 A 160 160 0 0 1 370 145" fill="none" stroke="rgba(244,248,209,0.2)" stroke-width="18" stroke-linecap="round" />
+                  <path id="labArcFill" d="M 50 145 A 160 160 0 0 1 370 145" fill="none" stroke="#F87171" stroke-width="18" stroke-linecap="round" stroke-dasharray="502" stroke-dashoffset="440" style="transition: stroke-dashoffset 400ms ease, stroke 300ms ease;" />
+                  <text id="labScoreNum" x="210" y="112" text-anchor="middle" fill="#F4F8D1" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="48">12%</text>
+                  <text x="210" y="142" text-anchor="middle" fill="#DDD7C7" font-family="JetBrains Mono, monospace" font-weight="700" font-size="11.5" letter-spacing="0.08em">PROTECTIVE FRICTION SCORE</text>
+                </svg>
+              </div>
+
+              <div class="scripture-feature-box">
+                <span class="meta-label" style="color: var(--ochre-deep);">1 Corinthians 6:12 &amp; Romans 12:2</span>
+                <p style="font-family: var(--font-editorial); font-size: 1.25rem; font-weight: 600; color: var(--ink-black);">
+                  “‘I have the right to do anything,’ you say—but not everything is beneficial… <em style="color: var(--ochre-deep);">I will not be mastered by anything.</em>”
+                </p>
+                <span style="font-size: 0.94rem; color: var(--ink-dark-muted);">Do not conform to the pattern of the feed, but be transformed by the renewing of your mind.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 7: WARM ESPRESSO (MODULE 05: INTERACTIVE DIAGNOSTIC CHECKLIST) -->
+      <section class="editorial-band band-espresso" id="diagnostic">
+        <div class="container">
+          <div style="display: grid; gap: 0.75rem; margin-bottom: var(--space-2xl); max-width: 78ch;">
+            <span class="meta-label" style="color: var(--ochre-soft);">Module 05 · Self-Reflection &amp; Pastoral Triage</span>
+            <h2 class="section-title" style="color: var(--cream);">Diagnostic Checklist: Identifying Algorithmic Capture</h2>
+            <p style="color: var(--ink-light-muted);">
+              Select your perspective below and tick any patterns noticed over the past 30 days. This tool runs privately in your notebook workspace and helps distinguish normal tiredness from platform-driven distress.
+            </p>
+            <div class="segmented-controls" role="group" aria-label="Select diagnostic perspective" style="margin-top: 0.5rem;">
+              <button type="button" class="seg-btn-light is-active" id="roleParentBtn" onclick="setDiagRole('parent')">Parent, Pastor &amp; Educator Lens</button>
+              <button type="button" class="seg-btn-light" id="roleTeenBtn" onclick="setDiagRole('teen')">Teen Honest Self-Check</button>
+            </div>
+          </div>
+
+          <div class="diagnostic-layout">
+            <div class="diag-list" id="diagChecklist"></div>
+
+            <aside class="diag-summary-card" aria-live="polite">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                <span class="meta-label" style="color: var(--ink-black);">Assessment Readout</span>
+                <span class="exhibit-pill dark-pill" id="diagBadge">0 / 8 Signals</span>
+              </div>
+
+              <div class="metric-figure teal-num" id="diagStatusTitle" style="font-size: 2.05rem;">
+                Baseline / Low Capture
+              </div>
+              <p style="color: var(--ink-dark-muted);" id="diagGuidance">
+                Tick any observable signs on the left to map them to the internal exhibits and generate a non-punitive care plan.
+              </p>
+
+              <div style="border-top: 1px solid rgba(10, 10, 10, 0.15); padding-top: var(--space-md); display: grid; gap: 0.45rem;">
+                <span class="meta-label" style="color: var(--ochre-deep);">Recommended Next Step</span>
+                <p id="diagNextStep" style="font-size: 0.96rem; color: var(--ink-black);">
+                  Even without acute distress, proactive environmental boundaries (bedroom phone-free zones and disabling autoplay) protect the developing frontal cortex.
+                </p>
+              </div>
+
+              <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+                <button type="button" class="btn btn-black" id="resetDiagBtn" onclick="resetDiagnostic(this)">
+                  Clear Checklist
+                </button>
+              </div>
+              <div class="inline-feedback" id="diagSaveStatus" style="color: var(--teal-deep);"></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- BAND 8: DEEP SEPIA + FLOATING BUTTER-CREAM COVENANT CARD -->
+      <section class="editorial-band band-covenant-sepia" id="covenant">
+        <div class="container">
+          <div class="covenant-grid">
+            <div style="display: grid; gap: var(--space-lg);">
+              <div style="display: grid; gap: 0.65rem;">
+                <span class="meta-label" style="color: var(--ochre-soft);">Module 06 · Restorative Action &amp; Community Solidarity</span>
+                <h2 class="display-title" style="font-size: clamp(2.4rem, 1.7rem + 2.8vw, 3.85rem); color: var(--cream);">
+                  Build a Family or Youth Ministry Covenant
+                </h2>
+                <p style="color: var(--ink-light-muted);">
+                  Because the <em>Household Ecosystem</em> study found teenagers resent screen limits when adults ignore their own phone habits, effective covenants apply to parents, mentors, and students together.
+                </p>
+              </div>
+
+              <span class="meta-label" style="color: var(--cream);">Select Shared Commitments (Pick 3 or More)</span>
+              <div class="diag-list" id="covenantCheckboxes"></div>
+            </div>
+
+            <!-- Floating Pale Chartreuse/Cream Card -->
+            <div class="floating-covenant-card" id="covenantPreviewCard">
+              <div style="display: flex; justify-content: space-between; align-items: center; gap: var(--space-sm); flex-wrap: wrap;">
+                <span class="meta-label" style="color: var(--ochre-deep);">Signed Digital Covenant</span>
+                <span class="exhibit-pill dark-pill" id="covCountBadge">0 Commitments</span>
+              </div>
+
+              <div class="field-row">
+                <div class="field-group">
+                  <label class="field-label" for="covHouseholdInput">Family or Youth Group Name</label>
+                  <input class="text-input" id="covHouseholdInput" type="text" placeholder="e.g., The Nair Family / Grace Youth" oninput="updateCovenantMeta()">
+                </div>
+                <div class="field-group">
+                  <label class="field-label" for="covMentorInput">Trusted Adult / Mentor Anchor</label>
+                  <input class="text-input" id="covMentorInput" type="text" placeholder="e.g., Uncle Daniel / Youth Pastor Priya" oninput="updateCovenantMeta()">
+                </div>
+              </div>
+
+              <h3 class="card-title" id="covPreviewHeading" style="font-size: 1.85rem; color: var(--ink-black);">
+                Our Household &amp; Sanctuary Pact
+              </h3>
+              <p class="editorial-italic-quote" style="font-size: 1.18rem; color: var(--ochre-deep); margin-top: -0.25rem;">
+                “We choose presence over algorithms, rest over late-night feeds, and honesty over perfection.”
+              </p>
+
+              <ul class="covenant-items" id="covPreviewList"></ul>
+
+              <div style="border-top: 1px solid rgba(10, 10, 10, 0.16); padding-top: var(--space-md); display: grid; gap: 0.4rem;">
+                <span class="meta-label" style="color: var(--teal-deep);">Trusted Mentor &amp; Crisis Safety Pledge</span>
+                <p id="covMentorLine" style="font-size: 0.94rem; color: var(--ink-dark-muted);">
+                  No-blame escape plan: if a stranger sends an unwanted or sexual DM, we report together without punitive device confiscation.
+                </p>
+              </div>
+
+              <div style="display: flex; flex-wrap: wrap; gap: var(--space-sm); padding-top: var(--space-xs);">
+                <button type="button" class="btn btn-ochre" onclick="exportCovenantFile()">
+                  <i data-lucide="download" width="17" height="17" aria-hidden="true"></i>
+                  Download Covenant (.txt)
+                </button>
+                <button type="button" class="btn btn-outline-black" id="resetCovBtn" onclick="resetCovenant(this)">
+                  Reset Pact
+                </button>
+              </div>
+              <div class="inline-feedback" id="covStatusMsg" style="color: var(--teal-deep);" aria-live="polite"></div>
+            </div>
+          </div>
+
+          <!-- Parent-Teen Dialogue Starters -->
+          <div style="margin-top: var(--space-3xl);">
+            <span class="meta-label" style="color: var(--ochre-soft);">Workshop Guide · Curiosity Over Interrogation</span>
+            <h3 class="section-title" style="color: var(--cream); font-size: clamp(1.75rem, 1.35rem + 1.4vw, 2.45rem); margin-top: 0.4rem;">
+              Shame-Free Dialogue Starters for Homes &amp; Small Groups
+            </h3>
+            <div class="dialogue-grid">
+              <article class="dialogue-card-dark">
+                <span class="meta-label" style="color: var(--cream);">On Novelty &amp; Control</span>
+                <p style="color: var(--ink-light);"><strong>Parent asks:</strong> “When you find yourself scrolling even when you want to stop, what does that feel like inside? Did you know designers studied the 80% mature teen brain to keep you looking?”</p>
+                <p style="font-size: 0.95rem; color: var(--ink-light-muted);"><strong>Teen explores:</strong> “Which feature steals my time fastest—autoplay Reels, disappearing Stories, or notifications?”</p>
+              </article>
+
+              <article class="dialogue-card-dark">
+                <span class="meta-label" style="color: var(--ochre-soft);">On Appearance &amp; Worth</span>
+                <p style="color: var(--ink-light);"><strong>Parent asks:</strong> “How often does your Explore page leave you feeling inadequate compared to real-life friends? Would turning on ‘Hide Like Counts’ help take the pressure off?”</p>
+                <p style="font-size: 0.95rem; color: var(--ink-light-muted);"><strong>Teen explores:</strong> “Where do I feel pressure to look perfect—Stories, Feeds, or group chats?”</p>
+              </article>
+
+              <article class="dialogue-card-dark">
+                <span class="meta-label" style="color: var(--crimson-light);">On Safety &amp; Night Rest</span>
+                <p style="color: var(--ink-light);"><strong>Parent asks:</strong> “What keeps young people from telling adults if someone sends a creepy message in DMs? What if all our phones—mine included—charged outside bedrooms by 9 PM?”</p>
+                <p style="font-size: 0.95rem; color: var(--ink-light-muted);"><strong>Teen explores:</strong> “What do I wish adults understood before bringing up my screen time?”</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- BAND 9: OBSIDIAN FOOTER -->
+    <footer class="site-footer-band">
+      <div class="container">
+        <span class="meta-label" style="color: var(--ochre-soft);">Evidentiary Sources &amp; Research Attribution</span>
+        <p style="margin-top: var(--space-sm); max-width: 82ch; color: var(--ink-light-muted);">
+          All metrics, verbatim corporate excerpts, and behavioural mechanisms presented on this hub are drawn directly from unsealed internal Meta documents and court exhibits filed in <em>Tennessee v. Meta</em>, <em>33 State Attorneys General v. Meta</em>, and <em>School Districts v. Social Media</em>, as compiled across 31 studies (2018–2024) by the NYU Stern Tech and Society Lab.
+        </p>
+        <div class="sources-grid">
+          <div class="source-box">
+            <span class="meta-label" style="color: var(--cream);">Neurology &amp; Compulsion</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs); color: var(--ink-light-muted);">
+              Exhibit 13 (Teen Fundamentals), Exhibit 19 &amp; S7.1 (Teen Ecosystem, 2020), IG Mental Well-being Strategy (2022), Study 4.4 (2023), Clinician Study (2022).
+            </p>
+          </div>
+          <div class="source-box">
+            <span class="meta-label" style="color: var(--ochre-soft);">Comparison &amp; Harm</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs); color: var(--ink-light-muted);">
+              Exhibits 44, 46–50 (Social Comparison &amp; High-NAC Series), Hard Life Moments (2019), People Disagree Content (2024), Exhibits 69–75 &amp; S7.4 (Selfie Manipulation).
+            </p>
+          </div>
+          <div class="source-box">
+            <span class="meta-label" style="color: var(--teal-accent);">Safety, Sleep &amp; Recovery</span>
+            <p style="font-size: 0.92rem; margin-top: var(--space-xs); color: var(--ink-light-muted);">
+              Exhibit 26 &amp; 45 (Mental Health &amp; NSSI), Exhibit 51 (BEEF Survey, 237,923 users), SSI Data, Exhibits 27 &amp; 34–40, MYST (2023), Project Daisy &amp; Project Mercury (2019).
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // ── STATE & PERSISTENCE MODEL ───────────────────────────────────────────
+    const APP_STATE = {
+      lectureMode: false,
+      activeBeat: 0,
+      feedSurface: 'explore',
+      interventions: {
+        curfew: false,
+        daisy: false,
+        grayscale: false,
+        dm: false,
+        mercury: false
+      },
+      diagRole: 'parent',
+      checkedDiag: [],
+      covenantHousehold: ``,
+      covenantMentor: ``,
+      checkedCovenants: ['curfew', 'daisy', 'sanctuary']
+    };
+
+    const SURFACE_CONFIG = {
+      explore: {
+        tag: `Exhibit 48 & 50 · Explore Tab`,
+        mosaicLabel: `12-Post Sample · 5:1 Influencer Skew + 18% High-NAC Exposure`,
+        nacPct: 18,
+        barPct: 60,
+        status: `18% · Past Harm Threshold`,
+        barClass: `danger`,
+        readoutColor: `var(--crimson-accent)`,
+        tiles: [
+          `inf`, `nac`, `inf`, `friend`, `inf`, `nac`,
+          `inf`, `inf`, `nac`, `inf`, `friend`, `inf`
+        ],
+        explanation: `On Explore, teen girls encounter 18% High-NAC content alongside a 5:1 ratio of celebrity/top accounts over real friends—surpassing the 11–13% threshold where a majority report appearance distress.`
+      },
+      feed: {
+        tag: `Exhibit 47 & S4.2.3 · Main Feed`,
+        mosaicLabel: `12-Post Sample · Algorithmic Feed Mix (14% NAC)`,
+        nacPct: 14,
+        barPct: 47,
+        status: `14% · Above 13% Threshold`,
+        barClass: `danger`,
+        readoutColor: `var(--ochre-deep)`,
+        tiles: [
+          `friend`, `inf`, `nac`, `inf`, `friend`, `inf`,
+          `nac`, `inf`, `friend`, `inf`, `inf`, `inf`
+        ],
+        explanation: `Even in the main Feed, algorithmic ranking pushes sensitive Negative Appearance Comparison content to 14%—still above the 11–13% internal distress threshold.`
+      },
+      stories: {
+        tag: `Study 4.4 & High-NAC · Stories`,
+        mosaicLabel: `12-Post Sample · 9% NAC, High FOMO & Autoplay Velocity`,
+        nacPct: 9,
+        barPct: 30,
+        status: `9% NAC · High Loss of Control`,
+        barClass: ``,
+        readoutColor: `var(--ochre-deep)`,
+        tiles: [
+          `friend`, `friend`, `inf`, `friend`, `nac`, `inf`,
+          `friend`, `inf`, `friend`, `inf`, `friend`, `inf`
+        ],
+        explanation: `Stories carry lower NAC (9%), yet Study 4.4 identified disappearing Stories and autoplay as the single strongest predictor of low perceived self-control due to FOMO.`
+      },
+      friends: {
+        tag: `High-NAC 4.2.2 · Curated Safe Zone`,
+        mosaicLabel: `12-Post Sample · Close Real Friends & Offline Hobbies`,
+        nacPct: 2,
+        barPct: 8,
+        status: `~2% · Protective Zone`,
+        barClass: `safe`,
+        readoutColor: `var(--teal-deep)`,
+        tiles: [
+          `friend`, `friend`, `friend`, `friend`, `friend`, `friend`,
+          `friend`, `friend`, `friend`, `friend`, `friend`, `friend`
+        ],
+        explanation: `Meta’s High-NAC Studies 4.2.2–4.2.3 proved that viewing real-life close friends and hobby interests (outdoors, art, sport) did not trigger harmful social comparison.`
+      }
+    };
+
+    const DIAG_ITEMS = {
+      parent: [
+        { id: `p1`, cat: `Algorithmic Compulsion`, text: `Struggles to log off despite wanting to; spends 3–5+ hours daily or shows agitation when separated from the phone (Exhibits 13, 19, 34).` },
+        { id: `p2`, cat: `Automatic Habit Loop`, text: `Opens Instagram automatically without realising it, or responds immediately to phantom notification alerts (Exhibit 25, 2022 Strategy).` },
+        { id: `p3`, cat: `Appearance Distress`, text: `Excessive mirror checking, reluctance to appear in unedited family photos, or verbalising negative body comparison (Exhibits 46, 69–75).` },
+        { id: `p4`, cat: `Perfection Pressure`, text: `Feels compelled to project a flawless image online while hiding genuine anxiety or sadness (67% baseline in Teen Mental Health Deep Dive).` },
+        { id: `p5`, cat: `Circadian & Sleep Loss`, text: `Scrolling at 11:00 PM or 12–4 AM, resulting in chronic morning exhaustion, brain fog, or slipping academic focus (Exhibits 39, Study 7.10).` },
+        { id: `p6`, cat: `Hidden Accounts & Contagion`, text: `Rapid screen concealment, secondary anonymous accounts, or unfamiliar visual hashtags linked to self-injury distress (Exhibit 45).` },
+        { id: `p7`, cat: `Predatory DM Exposure`, text: `Guarded secrecy around Direct Messages, sudden mood drops after DM alerts, or unexplained online gifts (Exhibit 51 BEEF Survey).` },
+        { id: `p8`, cat: `Silent Withdrawal (Especially Boys)`, text: `Quiet isolation without asking for help—boys experience higher DM bullying (14.4% vs 8.6%) yet seek support far less often (16% vs 41%).` }
+      ],
+      teen: [
+        { id: `t1`, cat: `Loss of Control`, text: `I open the app automatically without thinking, and 45 minutes vanish before I even realise I am still scrolling.` },
+        { id: `t2`, cat: `Powerless to Stop`, text: `I genuinely want to spend less time on my phone, yet autoplay Reels and disappearing Stories make it feel impossible to close.` },
+        { id: `t3`, cat: `Comparison Spiral`, text: `Scrolling Explore or seeing edited selfies leaves me feeling worse about my face, body, or life compared to influencers.` },
+        { id: `t4`, cat: `Performance Exhaustion`, text: `I feel pressured to look perfect online and cannot be honest about how lonely, stressed, or anxious I actually feel.` },
+        { id: `t5`, cat: `Midnight Loop`, text: `I regularly scroll past 11:00 PM or wake up between midnight and 4 AM to check messages, leaving me drained at school.` },
+        { id: `t6`, cat: `Unwanted DM Contact`, text: `Strangers have sent creepy, sexual, or uncomfortable messages or unwanted images to my DMs—and I felt unsure whom to tell.` },
+        { id: `t7`, cat: `Dark Content Rabbitholes`, text: `The algorithm keeps feeding me sad, hopeless, or self-harm-adjacent posts even when I did not search for them.` },
+        { id: `t8`, cat: `Lacking Safe Allies`, text: `I worry that if I tell an adult what is happening online, they will judge me or confiscate my phone rather than help me.` }
+      ]
+    };
+
+    const COVENANT_OPTIONS = [
+      { id: `curfew`, title: `9:00 PM Bedroom Device Ban`, detail: `All smartphones and tablets—parents’ included—charge in a common kitchen/living-room station overnight.` },
+      { id: `daisy`, title: `Turn On “Hide Like Counts”`, detail: `Manually opt into hiding Like counts in Instagram settings (Project Daisy) to silence comparison metrics.` },
+      { id: `grayscale`, title: `Grayscale & Notification Silence`, detail: `Switch displays to grayscale and disable all non-human push notifications to restore natural stopping cues.` },
+      { id: `dm`, title: `Private Account & No-Blame DM Escape Plan`, detail: `Restrict DMs to known real-life friends and promise zero punishment when reporting stranger solicitation.` },
+      { id: `audit`, title: `Monthly Explore & Follow Audit`, detail: `Sit together monthly to unfollow High-NAC influencer accounts and re-anchor feeds on hobbies and real friends.` },
+      { id: `mercury`, title: `7-Day Group “Mercury” Reset`, detail: `Join peers and parents in a synchronised 7-day social media break to reset mood without FOMO.` },
+      { id: `sanctuary`, title: `Device-Free Sanctuaries & Dinners`, detail: `Keep family meals, youth group nights, and worship gatherings genuinely phone-free.` },
+      { id: `pact`, title: `Collective Parent Age Pact`, detail: `Coordinate with at least 4 other families in our school or youth group on shared social media thresholds.` }
+    ];
+
+    // ── LECTURE FONT COMFORT TOGGLE ─────────────────────────────────────────
+    function toggleLectureMode() {
+      APP_STATE.lectureMode = !APP_STATE.lectureMode;
+      applyLectureMode();
+      persistState();
+    }
+
+    function applyLectureMode() {
+      const btn = document.getElementById(`lectureModeBtn`);
+      document.documentElement.classList.toggle(`lecture-mode`, APP_STATE.lectureMode);
+      if (btn) {
+        btn.setAttribute(`aria-pressed`, APP_STATE.lectureMode ? `true` : `false`);
+        const span = btn.querySelector(`span`);
+        if (span) {
+          span.textContent = APP_STATE.lectureMode ? `Lecture Font: Large` : `Lecture Font: Standard`;
+        }
+      }
+    }
+
+    // ── SCROLLYTELLING GRAPHIC ENGINE ────────────────────────────────────────
+    function buildGraphic() {
+      // Initial visual panels are already mounted inside #obsStage
+    }
+
+    function renderGraphic(index) {
+      const idx = Math.max(0, Math.min(3, Number(index) || 0));
+      APP_STATE.activeBeat = idx;
+
+      const meta = [
+        { phase: `Beat 01 / 04 · Neurology`, badge: `Exhibits 13 & 19`, cap: `80% mature brain · 20% frontal cortex gap` },
+        { phase: `Beat 02 / 04 · Comparison`, badge: `Exhibits 44–50`, cap: `5:1 influencer tilt · 18% NAC on Explore` },
+        { phase: `Beat 03 / 04 · DM Risk`, badge: `Exhibits 26, 45 & 51`, cap: `68.6% advances in DMs · 60% teen SSI share` },
+        { phase: `Beat 04 / 04 · Sleep Loss`, badge: `Exhibits 27, 34–40`, cap: `11 PM peak · Stopping cues dismantled` }
+      ];
+
+      const phaseEl = document.getElementById(`obsPhaseLabel`);
+      const badgeEl = document.getElementById(`obsExhibitBadge`);
+      const capEl = document.getElementById(`obsFooterCaption`);
+      if (phaseEl) {
+        phaseEl.innerHTML = `<span class="obs-phase-dot" aria-hidden="true"></span><span>${meta[idx].phase}</span>`;
+      }
+      if (badgeEl) badgeEl.textContent = meta[idx].badge;
+      if (capEl) capEl.textContent = meta[idx].cap;
+
+      for (let i = 0; i < 4; i++) {
+        const g = document.getElementById(`vizBeat${i}`);
+        if (g) g.style.display = i === idx ? `grid` : `none`;
+      }
+
+      document.querySelectorAll(`[data-beat-btn]`).forEach((btn) => {
+        const bIdx = Number(btn.getAttribute(`data-beat-btn`));
+        btn.classList.toggle(`is-active`, bIdx === idx);
+      });
+    }
+
+    function cycleBeat(delta) {
+      const next = (APP_STATE.activeBeat + delta + 4) % 4;
+      activateBeat(next);
+    }
+
+    function activateBeat(i) {
+      const steps = document.querySelectorAll(`.scrolly .step`);
+      steps.forEach((n, idx) => n.classList.toggle(`is-active`, idx === i));
+      renderGraphic(i);
+    }
+
+    function jumpToBeat(i) {
+      activateBeat(i);
+    }
+
+    // ── MODULE 2: FEED SURFACE SIMULATOR ────────────────────────────────────
+    function setFeedSurface(surfaceKey) {
+      const cfg = SURFACE_CONFIG[surfaceKey] || SURFACE_CONFIG.explore;
+      APP_STATE.feedSurface = surfaceKey;
+
+      document.querySelectorAll(`[data-surface]`).forEach((btn) => {
+        btn.classList.toggle(`is-active`, btn.getAttribute(`data-surface`) === surfaceKey);
+      });
+
+      const tagEl = document.getElementById(`simExhibitTag`);
+      const labelEl = document.getElementById(`mosaicLabel`);
+      const readoutEl = document.getElementById(`nacPercentReadout`);
+      const fillEl = document.getElementById(`nacBarFill`);
+      const expEl = document.getElementById(`simExplanation`);
+      const mosaicEl = document.getElementById(`feedMosaic`);
+
+      if (tagEl) tagEl.textContent = cfg.tag;
+      if (labelEl) labelEl.textContent = cfg.mosaicLabel;
+      if (readoutEl) {
+        readoutEl.textContent = cfg.status;
+        readoutEl.style.color = cfg.readoutColor;
+      }
+      if (fillEl) {
+        fillEl.style.width = `${cfg.barPct}%`;
+        fillEl.className = `nac-fill ${cfg.barClass}`.trim();
+      }
+      if (expEl) expEl.textContent = cfg.explanation;
+
+      if (mosaicEl) {
+        mosaicEl.innerHTML = cfg.tiles.map((t, idx) => {
+          const text = t === `friend` ? `Friend` : t === `nac` ? `High-NAC` : `Celeb`;
+          return `<div class="feed-tile ${t}" aria-label="Post ${idx + 1}: ${text}">${text}</div>`;
+        }).join(``);
+      }
+      persistState();
+    }
+
+    // ── MODULE 4: MIDNIGHT SHIFT & STOPPING-CUE LAB ─────────────────────────
+    function toggleIntervention(key) {
+      APP_STATE.interventions[key] = !APP_STATE.interventions[key];
+      renderInterventions();
+      persistState();
+    }
+
+    function renderInterventions() {
+      const map = APP_STATE.interventions;
+      const keys = Object.keys(map);
+      let activeCount = 0;
+
+      keys.forEach((k) => {
+        const btn = document.getElementById(`tog-${k}`);
+        const on = Boolean(map[k]);
+        if (on) activeCount++;
+        if (btn) {
+          btn.setAttribute(`aria-pressed`, on ? `true` : `false`);
+          btn.textContent = on ? `Active` : `Off`;
+        }
+      });
+
+      const pct = Math.min(100, 12 + activeCount * 17.6);
+      const roundedPct = Math.round(pct);
+      const estHours = Math.max(1.1, 4.2 - activeCount * 0.58).toFixed(1);
+
+      const hoursOut = document.getElementById(`labHoursOut`);
+      const hoursNote = document.getElementById(`labHoursNote`);
+      const sleepOut = document.getElementById(`labSleepOut`);
+      const sleepNote = document.getElementById(`labSleepNote`);
+      const arc = document.getElementById(`labArcFill`);
+      const scoreNum = document.getElementById(`labScoreNum`);
+
+      if (hoursOut) {
+        hoursOut.textContent = `${estHours} hrs`;
+        hoursOut.className = `metric-figure ${Number(estHours) <= 2.0 ? `teal-num` : `crimson-num`}`;
+      }
+      if (hoursNote) {
+        hoursNote.textContent = Number(estHours) <= 2.0
+          ? `Below 2-hour distress tipping point`
+          : `Above 2-hr wellbeing tipping point`;
+      }
+
+      const sleepSafe = Boolean(map.curfew);
+      if (sleepOut) {
+        sleepOut.textContent = sleepSafe ? `Guarded` : `At Risk`;
+        sleepOut.className = `metric-figure ${sleepSafe ? `teal-num` : `crimson-num`}`;
+      }
+      if (sleepNote) {
+        sleepNote.textContent = sleepSafe
+          ? `11 PM – 4 AM scrolling window closed`
+          : `Exposed to 11 PM – 4 AM loop`;
+      }
+
+      if (arc) {
+        const dashTotal = 502;
+        const offset = dashTotal - (dashTotal * (roundedPct / 100));
+        arc.style.strokeDashoffset = `${offset}`;
+        arc.style.stroke = roundedPct >= 65 ? `#14B8A6` : roundedPct >= 35 ? `#C88641` : `#F87171`;
+      }
+      if (scoreNum) scoreNum.textContent = `${roundedPct}%`;
+    }
+
+    // ── MODULE 5: DIAGNOSTIC CHECKLIST ──────────────────────────────────────
+    function setDiagRole(role) {
+      APP_STATE.diagRole = role === `teen` ? `teen` : `parent`;
+      const pBtn = document.getElementById(`roleParentBtn`);
+      const tBtn = document.getElementById(`roleTeenBtn`);
+      if (pBtn) pBtn.classList.toggle(`is-active`, APP_STATE.diagRole === `parent`);
+      if (tBtn) tBtn.classList.toggle(`is-active`, APP_STATE.diagRole === `teen`);
+      renderDiagnosticList();
+      persistState();
+    }
+
+    function toggleDiagItem(id) {
+      const idx = APP_STATE.checkedDiag.indexOf(id);
+      if (idx === -1) {
+        APP_STATE.checkedDiag.push(id);
+      } else {
+        APP_STATE.checkedDiag.splice(idx, 1);
+      }
+      renderDiagnosticList();
+      persistState();
+    }
+
+    function resetDiagnostic(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Click again to confirm`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Clear Checklist`;
+      }
+      APP_STATE.checkedDiag = [];
+      renderDiagnosticList();
+      persistState();
+    }
+
+    function renderDiagnosticList() {
+      const container = document.getElementById(`diagChecklist`);
+      const items = DIAG_ITEMS[APP_STATE.diagRole] || DIAG_ITEMS.parent;
+
+      if (container) {
+        container.innerHTML = items.map((item) => {
+          const checked = APP_STATE.checkedDiag.includes(item.id);
+          return `
+            <label class="diag-item-dark ${checked ? `is-checked` : ``}" for="chk-${item.id}">
+              <input class="diag-checkbox" type="checkbox" id="chk-${item.id}" ${checked ? `checked` : ``} onchange="toggleDiagItem('${item.id}')">
+              <div style="display: grid; gap: 4px;">
+                <span class="meta-label" style="color: var(--ochre-soft);">${item.cat}</span>
+                <span>${item.text}</span>
+              </div>
+            </label>
+          `;
+        }).join(``);
+      }
+
+      const activeCount = items.filter((it) => APP_STATE.checkedDiag.includes(it.id)).length;
+      const badgeEl = document.getElementById(`diagBadge`);
+      const titleEl = document.getElementById(`diagStatusTitle`);
+      const guideEl = document.getElementById(`diagGuidance`);
+      const stepEl = document.getElementById(`diagNextStep`);
+
+      if (badgeEl) badgeEl.textContent = `${activeCount} / ${items.length} Signals`;
+
+      const hasUrgent = APP_STATE.checkedDiag.includes(`p6`) || APP_STATE.checkedDiag.includes(`p7`) ||
+                        APP_STATE.checkedDiag.includes(`t6`) || APP_STATE.checkedDiag.includes(`t7`);
+
+      if (hasUrgent) {
+        if (titleEl) { titleEl.textContent = `High Priority Care & Triage`; titleEl.style.color = `var(--crimson-accent)`; }
+        if (guideEl) guideEl.textContent = `Signals indicate potential exposure to DM exploitation, NSSI contagion, or coded subcultures (Exhibits 45 & 51).`;
+        if (stepEl) stepEl.textContent = `Respond with calm solidarity, never punitive confiscation. Open a non-blaming conversation, lock DMs to real friends, and connect with a qualified counsellor or trusted youth pastor.`;
+      } else if (activeCount >= 4) {
+        if (titleEl) { titleEl.textContent = `Elevated Algorithmic Capture`; titleEl.style.color = `var(--ochre-deep)`; }
+        if (guideEl) guideEl.textContent = `Multiple frictionless loops—late-night scrolling, novelty hooks, and NAC comparison—are overriding emerging self-regulation.`;
+        if (stepEl) stepEl.textContent = `Introduce structural environmental relief: establish a 9:00 PM bedroom device curfew, enable Hide Like Counts, and try a 7-day Mercury fast together.`;
+      } else if (activeCount >= 1) {
+        if (titleEl) { titleEl.textContent = `Early Friction Opportunity`; titleEl.style.color = `var(--ochre-deep)`; }
+        if (guideEl) guideEl.textContent = `Early habit loops are visible, especially around automatic checking or social pressure.`;
+        if (stepEl) stepEl.textContent = `Audit the Explore feed together, silence non-human notifications, and replace passive scroll time with embodied offline community.`;
+      } else {
+        if (titleEl) { titleEl.textContent = `Baseline / Low Capture`; titleEl.style.color = `var(--teal-deep)`; }
+        if (guideEl) guideEl.textContent = `Tick any observable signs on the left to map them to the internal exhibits and generate a non-punitive care plan.`;
+        if (stepEl) stepEl.textContent = `Even without acute distress, proactive environmental boundaries (bedroom phone-free zones and disabling autoplay) protect the developing frontal cortex.`;
+      }
+    }
+
+    // ── MODULE 6: RESTORATIVE COVENANT BUILDER ──────────────────────────────
+    function renderCovenantOptions() {
+      const listEl = document.getElementById(`covenantCheckboxes`);
+      if (!listEl) return;
+
+      listEl.innerHTML = COVENANT_OPTIONS.map((opt) => {
+        const checked = APP_STATE.checkedCovenants.includes(opt.id);
+        return `
+          <label class="diag-item-dark ${checked ? `is-checked` : ``}" for="cov-${opt.id}">
+            <input class="diag-checkbox" type="checkbox" id="cov-${opt.id}" ${checked ? `checked` : ``} onchange="toggleCovenant('${opt.id}')">
+            <div style="display: grid; gap: 3px;">
+              <strong style="color: var(--cream); font-family: var(--font-editorial); font-size: 1.2rem;">${opt.title}</strong>
+              <span style="font-size: 0.94rem; color: var(--ink-light-muted);">${opt.detail}</span>
+            </div>
+          </label>
+        `;
+      }).join(``);
+    }
+
+    function toggleCovenant(id) {
+      const idx = APP_STATE.checkedCovenants.indexOf(id);
+      if (idx === -1) {
+        APP_STATE.checkedCovenants.push(id);
+      } else {
+        APP_STATE.checkedCovenants.splice(idx, 1);
+      }
+      renderCovenantOptions();
+      renderCovenantPreview();
+      persistState();
+    }
+
+    function updateCovenantMeta() {
+      const hIn = document.getElementById(`covHouseholdInput`);
+      const mIn = document.getElementById(`covMentorInput`);
+      APP_STATE.covenantHousehold = hIn ? hIn.value : ``;
+      APP_STATE.covenantMentor = mIn ? mIn.value : ``;
+      renderCovenantPreview();
+      persistState();
+    }
+
+    function renderCovenantPreview() {
+      const headingEl = document.getElementById(`covPreviewHeading`);
+      const countEl = document.getElementById(`covCountBadge`);
+      const listEl = document.getElementById(`covPreviewList`);
+      const mentorLineEl = document.getElementById(`covMentorLine`);
+
+      const house = APP_STATE.covenantHousehold.trim();
+      const mentor = APP_STATE.covenantMentor.trim();
+      const selected = COVENANT_OPTIONS.filter((o) => APP_STATE.checkedCovenants.includes(o.id));
+
+      if (headingEl) {
+        headingEl.textContent = house ? `${house} · Digital Covenant` : `Our Household & Sanctuary Pact`;
+      }
+      if (countEl) {
+        countEl.textContent = `${selected.length} Commitment${selected.length === 1 ? `` : `s`}`;
+      }
+      if (listEl) {
+        if (selected.length === 0) {
+          listEl.innerHTML = `<li style="color: var(--ink-dark-muted);">Select at least one shared commitment on the left to draft your family or ministry covenant.</li>`;
+        } else {
+          listEl.innerHTML = selected.map((o) => `<li><strong>${o.title}:</strong> ${o.detail}</li>`).join(``);
+        }
+      }
+      if (mentorLineEl) {
+        mentorLineEl.textContent = mentor
+          ? `Trusted Mentor Anchor: ${mentor}. No-blame escape plan: if a stranger sends an unwanted or sexual DM, we report together without punitive confiscation.`
+          : `No-blame escape plan: if a stranger sends an unwanted or sexual DM, we report together without punitive device confiscation.`;
+      }
+    }
+
+    function resetCovenant(btn) {
+      if (btn && btn.dataset.armed !== `true`) {
+        btn.dataset.armed = `true`;
+        btn.textContent = `Confirm Reset`;
+        return;
+      }
+      if (btn) {
+        btn.dataset.armed = `false`;
+        btn.textContent = `Reset Pact`;
+      }
+      APP_STATE.covenantHousehold = ``;
+      APP_STATE.covenantMentor = ``;
+      APP_STATE.checkedCovenants = [`curfew`, `daisy`, `sanctuary`];
+      const hIn = document.getElementById(`covHouseholdInput`);
+      const mIn = document.getElementById(`covMentorInput`);
+      if (hIn) hIn.value = ``;
+      if (mIn) mIn.value = ``;
+      renderCovenantOptions();
+      renderCovenantPreview();
+      persistState();
+      const msg = document.getElementById(`covStatusMsg`);
+      if (msg) msg.textContent = `Covenant reset to default starter commitments.`;
+    }
+
+    function exportCovenantFile() {
+      const house = APP_STATE.covenantHousehold.trim() || `Our Household & Youth Ministry`;
+      const mentor = APP_STATE.covenantMentor.trim() || `Assigned Trusted Mentor`;
+      const selected = COVENANT_OPTIONS.filter((o) => APP_STATE.checkedCovenants.includes(o.id));
+      const msgEl = document.getElementById(`covStatusMsg`);
+
+      if (selected.length === 0) {
+        if (msgEl) msgEl.textContent = `Please select at least one commitment before downloading.`;
+        return;
+      }
+
+      const lines = [
+        `BEYOND WILLPOWER — DIGITAL COVENANT`,
+        `==================================================`,
+        `Community / Household: ${house}`,
+        `Trusted Mentor Anchor: ${mentor}`,
+        `Date Drafted: 21 November 2026`,
+        ``,
+        `OUR SHARED COMMITMENTS:`,
+        ...selected.map((o, idx) => `${idx + 1}. ${o.title} — ${o.detail}`),
+        ``,
+        `THEOLOGICAL & PASTORAL PLEDGE:`,
+        `We remember Psalm 139:14 and 1 Corinthians 6:12. Worth is inherent,`,
+        `not measured by public Like counts. Parents, mentors, and teens`,
+        `commit to this pact together with curiosity, rest, and zero shame.`,
+        ``,
+        `NO-BLAME ESCAPE PLAN:`,
+        `If anyone receives an unwanted sexual advance or distressing message`,
+        `in DMs, we speak up immediately and report safely without punitive`,
+        `device confiscation.`
+      ];
+
+      const textPayload = lines.join(`\n`);
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.triggerFileDownload === `function`) {
+        window.notebookAppApi.triggerFileDownload({
+          content: textPayload,
+          contentType: `text/plain`,
+          encoding: `UTF-8`,
+          filename: `beyond-willpower-covenant.txt`
+        });
+        if (msgEl) msgEl.textContent = `Covenant exported as beyond-willpower-covenant.txt.`;
+      } else {
+        try {
+          const blob = new Blob([textPayload], { type: `text/plain;charset=utf-8` });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement(`a`);
+          link.href = url;
+          link.download = `beyond-willpower-covenant.txt`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          if (msgEl) msgEl.textContent = `Covenant downloaded as beyond-willpower-covenant.txt.`;
+        } catch (err) {
+          if (msgEl) msgEl.textContent = `Covenant drafted (${selected.length} commitments).`;
+        }
+      }
+    }
+
+    // ── SHIM STATE PERSISTENCE ──────────────────────────────────────────────
+    async function persistState() {
+      const diagStatus = document.getElementById(`diagSaveStatus`);
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+          await window.notebookAppApi.setAppState({
+            lectureMode: APP_STATE.lectureMode,
+            activeBeat: APP_STATE.activeBeat,
+            feedSurface: APP_STATE.feedSurface,
+            interventions: APP_STATE.interventions,
+            diagRole: APP_STATE.diagRole,
+            checkedDiag: APP_STATE.checkedDiag,
+            covenantHousehold: APP_STATE.covenantHousehold,
+            covenantMentor: APP_STATE.covenantMentor,
+            checkedCovenants: APP_STATE.checkedCovenants
+          });
+          if (diagStatus) diagStatus.textContent = `Progress saved automatically.`;
+        }
+      } catch (err) {
+        if (diagStatus) diagStatus.textContent = ``;
+      }
+    }
+
+    function applySavedState(saved) {
+      if (!saved || typeof saved !== `object`) return;
+      if (typeof saved.lectureMode === `boolean`) APP_STATE.lectureMode = saved.lectureMode;
+      if (typeof saved.activeBeat === `number`) APP_STATE.activeBeat = saved.activeBeat;
+      if (typeof saved.feedSurface === `string` && SURFACE_CONFIG[saved.feedSurface]) {
+        APP_STATE.feedSurface = saved.feedSurface;
+      }
+      if (saved.interventions && typeof saved.interventions === `object`) {
+        Object.keys(APP_STATE.interventions).forEach((k) => {
+          if (typeof saved.interventions[k] === `boolean`) {
+            APP_STATE.interventions[k] = saved.interventions[k];
+          }
+        });
+      }
+      if (saved.diagRole === `teen` || saved.diagRole === `parent`) {
+        APP_STATE.diagRole = saved.diagRole;
+      }
+      if (Array.isArray(saved.checkedDiag)) {
+        APP_STATE.checkedDiag = saved.checkedDiag.filter((x) => typeof x === `string`);
+      }
+      if (typeof saved.covenantHousehold === `string`) {
+        APP_STATE.covenantHousehold = saved.covenantHousehold;
+      }
+      if (typeof saved.covenantMentor === `string`) {
+        APP_STATE.covenantMentor = saved.covenantMentor;
+      }
+      if (Array.isArray(saved.checkedCovenants)) {
+        APP_STATE.checkedCovenants = saved.checkedCovenants.filter((x) => typeof x === `string`);
+      }
+    }
+
+    // ── INITIALISATION ──────────────────────────────────────────────────────
+    async function initApp() {
+      buildGraphic();
+
+      try {
+        if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+          const saved = await window.notebookAppApi.getAppState();
+          applySavedState(saved);
+        }
+      } catch (err) {
+        // Proceed with defaults if state is empty or unavailable
+      }
+
+      // Hydrate UI from state
+      applyLectureMode();
+      activateBeat(APP_STATE.activeBeat);
+      setFeedSurface(APP_STATE.feedSurface);
+      renderInterventions();
+      setDiagRole(APP_STATE.diagRole);
+
+      const hIn = document.getElementById(`covHouseholdInput`);
+      const mIn = document.getElementById(`covMentorInput`);
+      if (hIn) hIn.value = APP_STATE.covenantHousehold;
+      if (mIn) mIn.value = APP_STATE.covenantMentor;
+      renderCovenantOptions();
+      renderCovenantPreview();
+
+      // Wire scrollama or IntersectionObserver fallback
+      const stepNodes = document.querySelectorAll(`.scrolly .step`);
+      if (window.scrollama && stepNodes.length > 0) {
+        const scroller = window.scrollama();
+        scroller
+          .setup({ step: `.scrolly .step`, offset: 0.55 })
+          .onStepEnter(({ index }) => activateBeat(index));
+        window.addEventListener(`resize`, scroller.resize);
+      } else if (stepNodes.length > 0) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              activateBeat(Number(e.target.dataset.step));
+            }
+          });
+        }, { rootMargin: `-40% 0px -40% 0px`, threshold: 0 });
+        stepNodes.forEach((n) => io.observe(n));
+      }
+
+      if (window.lucide && typeof window.lucide.createIcons === `function`) {
+        window.lucide.createIcons();
+      }
+
+      if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+        window.notebookAppApi.notifyAppReady();
+      }
+    }
+
+    document.addEventListener(`DOMContentLoaded`, initApp);
+  </script>
+</body>
+</html>
